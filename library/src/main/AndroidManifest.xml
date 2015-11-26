@@ -1,5 +1,5 @@
 <manifest
-    package="net.sarangnamu.common"
+    package="net.sarangnamu.ani"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
