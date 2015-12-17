@@ -40,18 +40,18 @@ import org.xml.sax.InputSource;
             int count;
 
             expr = "count(//xsyncData)";
-            count = Integer.parseInt(xpath.evaluate(expr, document, XPathConstants.STRING).toString());
+            count = Integer.parseInt(mXpath.evaluate(expr, mDocument, XPathConstants.STRING).toString());
 
             expr = "//rgist/text()";
-            emsNum = xpath.evaluate(expr, document, XPathConstants.STRING).toString();
+            emsNum = mXpath.evaluate(expr, mDocument, XPathConstants.STRING).toString();
 
             if (emsNum == null || emsNum.length() == 0) {
                 expr = "//message/text()";
-                errMsg = xpath.evaluate(expr, document, XPathConstants.STRING).toString();
+                errMsg = mXpath.evaluate(expr, mDocument, XPathConstants.STRING).toString();
                 errMsg += " - [";
 
                 expr = "//error_code/text()";
-                errMsg += xpath.evaluate(expr, document, XPathConstants.STRING).toString();
+                errMsg += mXpath.evaluate(expr, mDocument, XPathConstants.STRING).toString();
                 errMsg += "]";
 
                 emsNum = tmpNum;
@@ -70,15 +70,15 @@ import org.xml.sax.InputSource;
 public abstract class XPathParser {
     private static final Logger mLog = LoggerFactory.getLogger(XPathParser.class);
 
-    protected XPath xpath = null;
-    protected Document document = null;
-    protected DocumentBuilder builder = null;
+    protected XPath mXpath = null;
+    protected Document mDocument = null;
+    protected DocumentBuilder mBuilder = null;
 
     public XPathParser() {
         try {
             DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
-            builder = builderFactory.newDocumentBuilder();
-            xpath = XPathFactory.newInstance().newXPath();
+            mBuilder = builderFactory.newDocumentBuilder();
+            mXpath = XPathFactory.newInstance().newXPath();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,7 +91,7 @@ public abstract class XPathParser {
         }
 
         try {
-            document = builder.parse(fp);
+            mDocument = mBuilder.parse(fp);
             parsing();
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,7 +100,7 @@ public abstract class XPathParser {
 
     public void loadXml(InputStream is) {
         try {
-            document  = builder.parse(is);
+            mDocument = mBuilder.parse(is);
             parsing();
         } catch (Exception e) {
             mLog.error(e.getMessage());
@@ -109,7 +109,7 @@ public abstract class XPathParser {
 
     public void loadXmlString(String xml) {
         try {
-            document  = builder.parse(new InputSource(new StringReader(xml)));
+            mDocument = mBuilder.parse(new InputSource(new StringReader(xml)));
             parsing();
         } catch (Exception e) {
             mLog.error(e.getMessage());
