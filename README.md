@@ -14,6 +14,6 @@ Step 2. Add the dependency
 
 ```gradle
 dependencies {
-	    compile 'com.github.aucd29:common:1.0.5'
+	    compile 'com.github.aucd29:common:1.0.6'
 }
 ```
