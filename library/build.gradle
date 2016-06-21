@@ -1,5 +1,18 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+    }
+}
+
+apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'android-apt'
 
 android {
@@ -10,7 +23,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 9
-        versionName "1.0.9"
+        versionName "1.0.10"
     }
     buildTypes {
         release {
