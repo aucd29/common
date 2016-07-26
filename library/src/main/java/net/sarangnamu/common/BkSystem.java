@@ -18,10 +18,14 @@
 package net.sarangnamu.common;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -31,7 +35,7 @@ import android.os.StatFs;
 /**
  * <pre>
  * {@code
- * BkSystem.isRunningApp(getApplicationContext());
+ * BkSystem.isForegroundApp(getApplicationContext());
  *
  * BkSystem.isExistSdCard();
  *
@@ -85,24 +89,58 @@ public class BkSystem {
 //        }
 //    }
 
-    public static boolean isRunningApp(final Context context) {
-        return isRunningApp(context, context.getPackageName());
+    public static boolean isForegroundApp(final Context context) {
+        return isForegroundApp(context, context.getPackageName());
     }
 
-    public static boolean isRunningApp(final Context context, final String packageName) {
+    public static boolean isForegroundApp(final Context context, final String packageName) {
         try {
             if (context == null) {
                 throw new Exception("context is null");
             }
 
-            ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(MAX_TASK);
+            String[] activePackages;
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
+                activePackages = getActivePackagesCompat(context);
+            } else {
+                activePackages = getActivePackages(context);
+            }
 
-            return taskInfo.contains(packageName);
+            if (activePackages != null) {
+                for (String activePackage : activePackages) {
+                    if (activePackage.equals(context.getPackageName())) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         } catch (Exception e) {
             mLog.error(e.getMessage());
             return false;
         }
+    }
+
+    private static String[] getActivePackagesCompat(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        final List<ActivityManager.RunningTaskInfo> taskInfo = activityManager.getRunningTasks(1);
+        final ComponentName componentName = taskInfo.get(0).topActivity;
+        final String[] activePackages = new String[1];
+        activePackages[0] = componentName.getPackageName();
+
+        return activePackages;
+    }
+
+    private static String[] getActivePackages(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        final Set<String> activePackages = new HashSet<>();
+        final List<ActivityManager.RunningAppProcessInfo> processInfos = activityManager.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo processInfo : processInfos) {
+            if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                activePackages.addAll(Arrays.asList(processInfo.pkgList));
+            }
+        }
+        return activePackages.toArray(new String[activePackages.size()]);
     }
 
     public static boolean isExistSdCard() {
