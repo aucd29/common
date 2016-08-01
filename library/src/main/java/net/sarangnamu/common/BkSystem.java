@@ -21,6 +21,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
 import android.app.Activity;
@@ -31,6 +32,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
+import android.text.TextUtils;
 
 /**
  * <pre>
@@ -212,5 +214,57 @@ public class BkSystem {
         act.moveTaskToBack(true);
         act.finish();
         android.os.Process.killProcess(android.os.Process.myPid());
+    }
+
+    public static String getExternalSdStorage() {
+        File fp = Environment.getExternalStorageDirectory();
+        String exts = null;
+
+        if (fp != null) {
+            exts = fp.getPath();
+        }
+
+        try {
+            File mountFp = new File("/proc/mounts");
+            if (!mountFp.exists()) {
+                return null;
+            }
+
+            String sdCard = null;
+            Scanner scanner = new Scanner(mountFp);
+
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                if (line.contains("secure") || line.contains("asec")) {
+                    continue;
+                }
+
+                if (line.contains("fat")) {
+                    String[] pars = line.split("\\s");
+                    if (pars.length < 2) {
+                        continue;
+                    }
+
+                    if (pars[1].equals(exts) || "/mnt/sdcard".equals(pars[1])) {
+                        continue;
+                    }
+
+                    sdCard = pars[1];
+                    break;
+                }
+            }
+
+            if (!TextUtils.isEmpty(sdCard) && sdCard.contains("media_rw")) {
+                int pos = sdCard.lastIndexOf('/');
+                String name = sdCard.substring(pos, sdCard.length());
+                sdCard = "/storage" + name;
+            }
+
+            return sdCard;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
