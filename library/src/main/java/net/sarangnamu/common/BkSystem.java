@@ -17,13 +17,6 @@
  */
 package net.sarangnamu.common;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
-
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -32,7 +25,15 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
 
 /**
  * <pre>
@@ -266,5 +267,24 @@ public class BkSystem {
         }
 
         return null;
+    }
+
+    // required com.android.launcher.permission.INSTALL_SHORTCUT
+    public static void addShortCut(@NonNull Context context, @NonNull Class<?> clazz, @NonNull String appName, int appIcon) {
+        Intent shortcutIntent = new Intent(Intent.ACTION_MAIN);
+        shortcutIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        shortcutIntent.setClassName(context, clazz.getClass().getName());
+        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|
+                Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+
+        Intent intent = new Intent();
+        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, appName);
+        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                Intent.ShortcutIconResource.fromContext(context, appIcon));
+        intent.putExtra("duplicate", false);
+        intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+
+        context.sendBroadcast(intent);
     }
 }
