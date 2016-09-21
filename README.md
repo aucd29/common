@@ -14,6 +14,6 @@ Step 2. Add the dependency
 
 ```gradle
 dependencies {
-	    compile 'com.github.aucd29:common:1.0.13'
+	    compile 'com.github.aucd29:common:1.0.14'
 }
 ```
