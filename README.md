@@ -1,4 +1,5 @@
 # common
+[![Build Status](https://travis-ci.org/aucd29/common.svg?branch=master)](https://travis-ci.org/aucd29/common)
 
 Add it to your build.gradle with:
 ```gradle
