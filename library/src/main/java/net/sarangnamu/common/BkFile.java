@@ -43,22 +43,22 @@ import java.io.OutputStream;
 public class BkFile {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(BkFile.class);
 
-    public static boolean mkdirs(File fp) throws Exception {
-        if (!fp.exists()) {
-            return fp.mkdirs();
-        }
-
-        return true;
-    }
-
-    public static boolean mkdirs(final String path) throws Exception {
-        File fp = new File(path);
-        if (!fp.exists()) {
-            return fp.mkdirs();
-        }
-
-        return true;
-    }
+//    public static boolean mkdirs(File fp) throws Exception {
+//        if (!fp.exists()) {
+//            return fp.mkdirs();
+//        }
+//
+//        return true;
+//    }
+//
+//    public static boolean mkdirs(final String path) throws Exception {
+//        File fp = new File(path);
+//        if (!fp.exists()) {
+//            return fp.mkdirs();
+//        }
+//
+//        return true;
+//    }
 
     ////////////////////////////////////////////////////////////////////////////////////
     //
@@ -66,87 +66,87 @@ public class BkFile {
     //
     ////////////////////////////////////////////////////////////////////////////////////
 
-    private static void copyStream(File fpDest, InputStream in, OutputStream out, FileCopyListener l) throws Exception {
-        int len;
-        byte[] buf = new byte[4096];
-        FileCopyDetailListener dl = null;
+//    private static void copyStream(File fpDest, InputStream in, OutputStream out, FileCopyListener l) throws Exception {
+//        int len;
+//        byte[] buf = new byte[4096];
+//        FileCopyDetailListener dl = null;
+//
+//        if (l != null && l instanceof FileCopyDetailListener) {
+//            dl = (FileCopyDetailListener) l;
+//        }
+//
+//        long total = 0;
+//        while ((len = in.read(buf)) > 0) {
+//            if (l.isCancelled()) {
+//                break;
+//            }
+//
+//            if (dl != null) {
+//                total += len;
+//                double percent = total * 100f / dl.getFileSize();
+//                dl.onProcess((int) percent);
+//            }
+//
+//            out.write(buf, 0, len);
+//            Thread.sleep(1);
+//        }
+//
+//        dl.onProcess(100);
+//
+//        out.flush();
+//        in.close();
+//        out.close();
+//
+//        if (l != null) {
+//            if (l.isCancelled()) {
+//                l.onCancelled();
+//
+//                return;
+//            }
+//
+//            l.onFinish(fpDest.getAbsolutePath());
+//        }
+//    }
 
-        if (l != null && l instanceof FileCopyDetailListener) {
-            dl = (FileCopyDetailListener) l;
-        }
-
-        long total = 0;
-        while ((len = in.read(buf)) > 0) {
-            if (l.isCancelled()) {
-                break;
-            }
-
-            if (dl != null) {
-                total += len;
-                double percent = total * 100f / dl.getFileSize();
-                dl.onProcess((int) percent);
-            }
-
-            out.write(buf, 0, len);
-            Thread.sleep(1);
-        }
-
-        dl.onProcess(100);
-
-        out.flush();
-        in.close();
-        out.close();
-
-        if (l != null) {
-            if (l.isCancelled()) {
-                l.onCancelled();
-
-                return;
-            }
-
-            l.onFinish(fpDest.getAbsolutePath());
-        }
-    }
-
-    public static void copyFileTo(File fpSrc, String destFullPathName) throws Exception {
-        copyFileTo(fpSrc, destFullPathName, null);
-    }
-
-    public static void copyFileTo(File fpSrc, String destFullPathName, FileCopyListener l) throws Exception {
-        String destFilePath = BkString.getFilePath(destFullPathName);
-
-        mkdirs(destFilePath);
-
-        File fpDest      = new File(destFullPathName);
-        InputStream in   = new FileInputStream(fpSrc);
-        OutputStream out = new FileOutputStream(fpDest);
-
-        if (l != null && l instanceof FileCopyDetailListener) {
-            ((FileCopyDetailListener)l).onFileSize(fpSrc.length());
-        }
-
-        copyStream(fpDest, in, out, l);
-    }
-
-    public static void copyFile(File fpSrc, String destPathName) throws Exception {
-        copyFile(fpSrc, destPathName, null);
-    }
-
-    public static void copyFile(File fpSrc, String destPathName, FileCopyListener l) throws Exception {
-        String fileName = BkString.getFileName(fpSrc.getAbsolutePath());
-
-        mkdirs(destPathName);
-
-        File fpDest      = new File(destPathName, fileName);
-        InputStream in   = new FileInputStream(fpSrc);
-        OutputStream out = new FileOutputStream(fpDest);
-
-        if (l != null && l instanceof FileCopyDetailListener) {
-            ((FileCopyDetailListener)l).onFileSize(fpSrc.length());
-        }
-
-        copyStream(fpDest, in, out, l);
-    }
+//    public static void copyFileTo(File fpSrc, String destFullPathName) throws Exception {
+//        copyFileTo(fpSrc, destFullPathName, null);
+//    }
+//
+//    public static void copyFileTo(File fpSrc, String destFullPathName, FileCopyListener l) throws Exception {
+//        String destFilePath = BkString.getFilePath(destFullPathName);
+//
+//        mkdirs(destFilePath);
+//
+//        File fpDest      = new File(destFullPathName);
+//        InputStream in   = new FileInputStream(fpSrc);
+//        OutputStream out = new FileOutputStream(fpDest);
+//
+//        if (l != null && l instanceof FileCopyDetailListener) {
+//            ((FileCopyDetailListener)l).onFileSize(fpSrc.length());
+//        }
+//
+//        copyStream(fpDest, in, out, l);
+//    }
+//
+//    public static void copyFile(File fpSrc, String destPathName) throws Exception {
+//        copyFile(fpSrc, destPathName, null);
+//    }
+//
+//    public static void copyFile(File fpSrc, String destPathName, FileCopyListener l) throws Exception {
+//        String fileName = BkString.getFileName(fpSrc.getAbsolutePath());
+//
+//        mkdirs(destPathName);
+//
+//        File fpDest      = new File(destPathName, fileName);
+//        InputStream in   = new FileInputStream(fpSrc);
+//        OutputStream out = new FileOutputStream(fpDest);
+//
+//        if (l != null && l instanceof FileCopyDetailListener) {
+//            ((FileCopyDetailListener)l).onFileSize(fpSrc.length());
+//        }
+//
+//        copyStream(fpDest, in, out, l);
+//    }
 
     public static void copyDirectory(File srcPath, File destPath) throws Exception {
         copyDirectory(srcPath, destPath, null);
