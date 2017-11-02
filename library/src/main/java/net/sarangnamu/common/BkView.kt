@@ -14,6 +14,7 @@
 
 package net.sarangnamu.common
 
+import android.graphics.Bitmap
 import android.os.Build
 import android.view.View
 import android.view.ViewTreeObserver
@@ -52,4 +53,33 @@ inline fun View.layoutListener(crossinline f: () -> Unit) = with (viewTreeObserv
             f()
         }
     })
+}
+
+fun View.capture(): Bitmap? {
+    clearFocus()
+    isPressed = false
+
+    val cacheDrawing = willNotCacheDrawing()
+    setWillNotCacheDrawing(false)
+    invalidate()
+    buildDrawingCache()
+
+    val color = drawingCacheBackgroundColor
+    drawingCacheBackgroundColor = 0
+
+    if (color != 0) {
+        destroyDrawingCache()
+    }
+
+    val cache = drawingCache
+    if (cache == null) {
+        return null
+    }
+
+    val bmp = Bitmap.createBitmap(cache)
+    destroyDrawingCache()
+    setWillNotCacheDrawing(cacheDrawing)
+    drawingCacheBackgroundColor = color
+
+    return bmp
 }
