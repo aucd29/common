@@ -39,6 +39,9 @@ import java.io.File
 //
 ////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * pkgName 에 해당하는 앱이 foreground 인지 확인
+ */
 fun Context.isForegroundApp(pkgName: String): Boolean {
     val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
     return manager.runningAppProcesses.filter {
@@ -46,14 +49,26 @@ fun Context.isForegroundApp(pkgName: String): Boolean {
                 && it.processName == pkgName }.size == 1
 }
 
+/**
+ * 현재 앱이 foreground 인지 확인
+ */
 fun Context.isForegroundApp(): Boolean {
     return isForegroundApp(packageName)
 }
 
+/**
+ * sdcard 내 app 경로 전달
+ */
 fun Context.externalFilePath() = getExternalFilesDir(null).absolutePath
 
+/**
+ * display density 반환
+ */
 fun Context.displayDensity() = resources.displayMetrics.density
 
+/**
+ * open keyboard
+ */
 fun Context.showKeyboard(view: View?) {
     view?.let {
         it.postDelayed({
@@ -64,6 +79,9 @@ fun Context.showKeyboard(view: View?) {
     }
 }
 
+/**
+ * hide keyboard
+ */
 fun Context.hideKeyboard(view: View?) {
     view?.let {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -71,10 +89,16 @@ fun Context.hideKeyboard(view: View?) {
     }
 }
 
+/**
+ * force hide keyboard
+ */
 fun Context.forceHideKeyboard(window: Window?) {
     window?.run { setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN) }
 }
 
+/**
+ * preference 설정
+ */
 @SuppressLint("CommitPrefEdits")
 fun Context.config(param: Preference): String? {
     val pref = getSharedPreferences("burke.pref", Context.MODE_PRIVATE)
@@ -102,11 +126,17 @@ class Preference {
     var write = false
     var async = false
 
+    /**
+     * read shared preference
+     */
     fun read(key: String, value: String?) {
         data(key, value)
         write = false
     }
 
+    /**
+     * write shared preference
+     */
     fun write(key: String, value: String?) {
         data(key, value)
         write = false
@@ -124,15 +154,19 @@ class Preference {
 //
 ////////////////////////////////////////////////////////////////////////////////////
 
+/** sdcard 가 존재하는지 확인 */
 fun Environment.hasSd() =
         Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
 
+/** data directory 에 사이즈 반환 */
 fun Environment.dataDirSize() =
         BkSystem.blockSize(Environment.getDataDirectory()).toFileSizeString()
 
+/** sdcard 사이즈 반환 */
 fun Environment.sdSize() =
         BkSystem.blockSize(Environment.getExternalStorageDirectory()).toFileSizeString()
 
+/** sdcard 경로 반환 */
 fun Environment.sdPath() =
         Environment.getExternalStorageDirectory().getAbsolutePath()
 
@@ -142,6 +176,7 @@ fun Environment.sdPath() =
 //
 ////////////////////////////////////////////////////////////////////////////////////
 
+/** try catch block */
 inline fun <T, R> T.trycatch(block: (T) -> R) : R {
     try {
         return block(this)
@@ -158,10 +193,15 @@ inline fun <T, R> T.trycatch(block: (T) -> R) : R {
 //
 ////////////////////////////////////////////////////////////////////////////////////
 
-fun Activity.killApp() {
+/** process kill */
+fun Activity.processKill() {
     moveTaskToBack(true)
     finish()
     android.os.Process.killProcess(android.os.Process.myPid())
+}
+
+fun Activity.kill() {
+    System.exit(0)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////

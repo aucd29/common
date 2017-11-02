@@ -15,7 +15,6 @@
 package net.sarangnamu.common
 
 import android.content.res.AssetManager
-import android.util.Log
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.InputStream

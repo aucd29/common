@@ -40,8 +40,5 @@ open class BkApp : Application() {
 
         val manager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
         manager.defaultDisplay.getSize(screen)
-
-
-        config(Preference().apply { write("key", "value") })
     }
 }

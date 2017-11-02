@@ -39,22 +39,6 @@ abstract class LinearBase : LinearLayout {
         initLayout()
     }
 
-    protected fun setLayoutListener() {
-        viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-                    viewTreeObserver.removeOnGlobalLayoutListener(this)
-                } else {
-                    viewTreeObserver.removeGlobalOnLayoutListener(this)
-                }
-
-                globalLayout()
-            }
-        })
-    }
-
-    open fun globalLayout() { }
-
     protected fun string(@StringRes resid: Int) = context.resources.getString(resid)
 
     ////////////////////////////////////////////////////////////////////////////////////

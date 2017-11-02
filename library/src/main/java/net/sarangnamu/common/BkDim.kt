@@ -26,7 +26,7 @@ fun Float.doToPixelInt() = (this * BkApp.context.displayDensity()).toInt()
 
 fun Int.pixelToDp()      = this / BkApp.context.displayDensity()
 fun Int.dpToPixel()      = this * BkApp.context.displayDensity()
-fun Int.doToPixelFloat() = (this * BkApp.context.displayDensity()).toFloat()
+fun Int.doToPixelFloat() = (this * BkApp.context.displayDensity())
 
 class BkDim {
     companion object {

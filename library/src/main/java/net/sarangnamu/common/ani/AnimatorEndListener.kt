@@ -15,13 +15,20 @@
 package net.sarangnamu.common.ani
 
 import android.animation.Animator
+import android.animation.Animator.AnimatorListener
+import android.animation.ObjectAnimator
+import android.util.Log
+import android.widget.LinearLayout
 
 /**
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 9. 27.. <p/>
  */
 
-interface AnimatorEndListener : Animator.AnimatorListener {
-    override fun onAnimationStart(p0: Animator?) { }
-    override fun onAnimationCancel(p0: Animator?) { }
-    override fun onAnimationRepeat(p0: Animator?) { }
+inline fun Animator.addEndListener(crossinline f: (Animator?) -> Unit) {
+    addListener(object : AnimatorListener {
+        override fun onAnimationStart(p0: Animator?) {}
+        override fun onAnimationCancel(p0: Animator?) {}
+        override fun onAnimationRepeat(p0: Animator?) {}
+        override fun onAnimationEnd(animation: Animator?) = f(animation)
+    })
 }
