@@ -212,6 +212,7 @@ fun Activity.kill() {
 
 class BkSystem {
     companion object {
+        @Suppress("DEPRECATION")
         fun blockSize(path: File): Long {
             val blockSize: Long
             val availableBlocks: Long

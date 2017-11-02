@@ -157,7 +157,7 @@ fun AssetManager.copy(srcPath: String, destPath: String, listener: FileListener?
     }
 
     if (list.size == 0) {
-        this.open(srcPath).use { ism ->
+        this.open(srcPath).use {
             val f = File(destPath, srcPath)
             if (!f.parentFile.exists()) {
                 f.parentFile.mkdirs()

@@ -39,6 +39,7 @@ import android.view.ViewTreeObserver
 /**
  * https://antonioleiva.com/kotlin-ongloballayoutlistener/
  */
+@Suppress("DEPRECATION")
 inline fun View.layoutListener(crossinline f: () -> Unit) = with (viewTreeObserver) {
     addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
         override fun onGlobalLayout() {

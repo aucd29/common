@@ -21,22 +21,22 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
 
-    compile('com.github.tony19:logback-android-classic:1.1.1-3') {
+    implementation('com.github.tony19:logback-android-classic:1.1.1-3') {
         exclude group: 'com.google.android', module: 'android'
     }
-    compile ('com.github.tony19:logback-android-core:1.1.1-3')  {
+    implementation ('com.github.tony19:logback-android-core:1.1.1-3')  {
         exclude group: 'com.google.android', module: 'android'
     }
-    compile 'org.slf4j:slf4j-api:1.7.5'
+    implementation 'org.slf4j:slf4j-api:1.7.5'
 
     // 기본 compat 을 뺄가 싶었는데 그래도 넣는게 나아서 일단은 넣는 걸로 결정.
     // 단 butterknife 나 retrolambda 는 제거
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 
 // build a jar with source files
