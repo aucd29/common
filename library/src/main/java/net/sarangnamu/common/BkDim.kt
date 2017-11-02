@@ -14,8 +14,6 @@
 
 package net.sarangnamu.common
 
-import android.content.Context
-
 /**
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 9. 27.. <p/>
  */

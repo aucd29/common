@@ -16,9 +16,6 @@ package net.sarangnamu.common.ani
 
 import android.animation.Animator
 import android.animation.Animator.AnimatorListener
-import android.animation.ObjectAnimator
-import android.util.Log
-import android.widget.LinearLayout
 
 /**
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 9. 27.. <p/>

@@ -47,7 +47,7 @@ import javax.xml.xpath.XPathFactory
         }
     }
  */
-public abstract class XPathBase {
+abstract class XPathBase {
     companion object {
         private val log = LoggerFactory.getLogger(XPathBase::class.java)
     }
