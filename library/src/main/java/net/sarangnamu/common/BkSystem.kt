@@ -22,6 +22,7 @@ import android.os.Build
 import android.os.Environment
 import android.os.StatFs
 import android.util.Base64
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -34,26 +35,26 @@ import java.io.File
 
 ////////////////////////////////////////////////////////////////////////////////////
 //
-// CONTEXT EXTENTION
+// CONTEXT EXTENSION
 //
 ////////////////////////////////////////////////////////////////////////////////////
 
-public fun Context.isForegroundApp(pkgName: String): Boolean {
+fun Context.isForegroundApp(pkgName: String): Boolean {
     val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
     return manager.runningAppProcesses.filter {
         it.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
                 && it.processName == pkgName }.size == 1
 }
 
-public fun Context.isForegroundApp(): Boolean {
+fun Context.isForegroundApp(): Boolean {
     return isForegroundApp(packageName)
 }
 
-public fun Context.externalFilePath() = getExternalFilesDir(null).absolutePath
+fun Context.externalFilePath() = getExternalFilesDir(null).absolutePath
 
-public fun Context.displayDensity() = resources.displayMetrics.density
+fun Context.displayDensity() = resources.displayMetrics.density
 
-public fun Context.showKeyboard(view: View?) {
+fun Context.showKeyboard(view: View?) {
     view?.let {
         it.postDelayed({
             it.requestFocus()
@@ -63,19 +64,19 @@ public fun Context.showKeyboard(view: View?) {
     }
 }
 
-public fun Context.hideKeyboard(view: View?) {
+fun Context.hideKeyboard(view: View?) {
     view?.let {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(it.windowToken, 0)
     }
 }
 
-public fun Context.forceHideKeyboard(window: Window?) {
+fun Context.forceHideKeyboard(window: Window?) {
     window?.run { setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN) }
 }
 
 @SuppressLint("CommitPrefEdits")
-public fun Context.config(param: Preference): String? {
+fun Context.config(param: Preference): String? {
     val pref = getSharedPreferences("burke.pref", Context.MODE_PRIVATE)
 
     if (param.write) {
@@ -95,7 +96,7 @@ public fun Context.config(param: Preference): String? {
     return null
 }
 
-public class Preference {
+class Preference {
     lateinit var key: String
     var value: String? = null
     var write = false
@@ -123,17 +124,33 @@ public class Preference {
 //
 ////////////////////////////////////////////////////////////////////////////////////
 
-public fun Environment.hasSdcard() =
+fun Environment.hasSd() =
         Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
 
-public fun Environment.dataDirectorySize() =
+fun Environment.dataDirSize() =
         BkSystem.blockSize(Environment.getDataDirectory()).toFileSizeString()
 
-public fun Environment.sdSize() =
+fun Environment.sdSize() =
         BkSystem.blockSize(Environment.getExternalStorageDirectory()).toFileSizeString()
 
-public fun Environment.sdPath() =
+fun Environment.sdPath() =
         Environment.getExternalStorageDirectory().getAbsolutePath()
+
+////////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+////////////////////////////////////////////////////////////////////////////////////
+
+inline fun <T, R> T.trycatch(block: (T) -> R) : R {
+    try {
+        return block(this)
+    } catch (e: Exception) {
+        Log.e("trycatch", "ERROR: " + e.message)
+        throw e
+    }
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////
 //
@@ -141,7 +158,7 @@ public fun Environment.sdPath() =
 //
 ////////////////////////////////////////////////////////////////////////////////////
 
-public fun Activity.killApp() {
+fun Activity.killApp() {
     moveTaskToBack(true)
     finish()
     android.os.Process.killProcess(android.os.Process.myPid())

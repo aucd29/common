@@ -18,10 +18,25 @@ package net.sarangnamu.common
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 10. 16.. <p/>
  */
 
-
-public fun Long.toFileSizeString(): String {
+fun Long.toFileSizeString(): String {
     var u = 0
     var size = this
+
+    while (size > 1024 * 1024) {
+        u++
+        size = size shr 10
+    }
+
+    if (size > 1024) {
+        u++
+    }
+
+    return String.format("%.1f %cB", size / 1024f, " KMGTPE"[u])
+}
+
+fun Double.toFileSizeString(): String {
+    var u = 0
+    var size = this.toLong()
 
     while (size > 1024 * 1024) {
         u++

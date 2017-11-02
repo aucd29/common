@@ -20,13 +20,13 @@ import android.content.Context
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 9. 27.. <p/>
  */
 
-public fun Float.pixelToDp()    = this / BkApp.context.displayDensity()
-public fun Float.dpToPixel()    = this * BkApp.context.displayDensity()
-public fun Float.doToPixelInt() = (this * BkApp.context.displayDensity()).toInt()
+fun Float.pixelToDp()    = this / BkApp.context.displayDensity()
+fun Float.dpToPixel()    = this * BkApp.context.displayDensity()
+fun Float.doToPixelInt() = (this * BkApp.context.displayDensity()).toInt()
 
-public fun Int.pixelToDp()      = this / BkApp.context.displayDensity()
-public fun Int.dpToPixel()      = this * BkApp.context.displayDensity()
-public fun Int.doToPixelFloat() = (this * BkApp.context.displayDensity()).toFloat()
+fun Int.pixelToDp()      = this / BkApp.context.displayDensity()
+fun Int.dpToPixel()      = this * BkApp.context.displayDensity()
+fun Int.doToPixelFloat() = (this * BkApp.context.displayDensity()).toFloat()
 
 class BkDim {
     companion object {

@@ -12,6 +12,6 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     public void test() {
-        BkSystem2.Companion.isForegroundApp();
+//        BkSystem2.Companion.isForegroundApp();
     }
 }

@@ -14,29 +14,49 @@
 
 package net.sarangnamu.common
 
+import java.io.File
+
 /**
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 10. 16.. <p/>
  */
 
-public fun CharSequence.isLastSlash(): Boolean =
-        !isEmpty() && lastIndexOf('/') != -1
+/**
+ * 문자열 끝에 / 이 존재하는지 확인
+ */
+fun CharSequence.isLastSlash(): Boolean =
+        !isEmpty() && lastIndexOf(File.separator) != -1
 
-public fun String.addLastSlash(): String {
+/**
+ * 문자열 끝에 / 를 붙임
+ */
+fun String.addLastSlash(): String {
     if (isEmpty()) {
         return this
     }
 
-    if (!endsWith("/")) {
-        return this + "/"
+    if (!endsWith(File.separator)) {
+        return this + File.separator
     }
 
     return this
 }
 
-public fun String.fileName(): String {
-    return substringBeforeLast('/', "")
-}
+/**
+ * 파일명.확장자 반환
+ */
+fun String.fileFullName(): String = substringAfterLast('/')
 
-public fun String.fileExtension(): String {
-    return substringAfterLast('.', "")
-}
+/**
+ * 파일 경로만 반환
+ */
+fun String.filePath(): String = substringBeforeLast('/', "")
+
+/**
+ * 파일이름만 반환
+ */
+fun String.fileName(): String = substringAfterLast('/')
+
+/**
+ * 파일 확장자만 반환
+ */
+fun String.fileExtension(): String = fileFullName().substringBeforeLast('.')

@@ -48,13 +48,18 @@ import javax.xml.xpath.XPathFactory
     }
  */
 public abstract class XPathBase {
-    private val log = LoggerFactory.getLogger(XPathBase::class.java)
+    companion object {
+        private val log = LoggerFactory.getLogger(XPathBase::class.java)
+    }
 
     val xpath   = XPathFactory.newInstance().newXPath()
     val builder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
     lateinit var document: Document
 
-    open fun loadXml(fp: File) {
+    /**
+     * xml 파일 핸을 연다
+     */
+    fun loadXml(fp: File) {
         if (!fp.exists()) {
             log.error("ERROR: FILE NOT FOUND ($fp)")
             return
@@ -68,7 +73,10 @@ public abstract class XPathBase {
         }
     }
 
-    open fun loadXml(ism: InputStream) {
+    /**
+     * xml input stream 을 연다
+     */
+    fun loadXml(ism: InputStream) {
         try {
             document = builder.parse(ism)
             parsing()
@@ -77,7 +85,10 @@ public abstract class XPathBase {
         }
     }
 
-    open fun loadXml(xml: String) {
+    /**
+     * xml string 로드 한다
+     */
+    fun loadXml(xml: String) {
         try {
             document = builder.parse(InputSource(StringReader(xml)))
             parsing()
@@ -86,10 +97,15 @@ public abstract class XPathBase {
         }
     }
 
+    /** string 으로 반환 */
     fun string(expr: String) = xpath.evaluate(expr, document, XPathConstants.STRING).toString().trim()
+    /** int 로 반환 */
     fun int(expr: String)    = string(expr).toInt()
+    /** float 으로 반환 */
     fun float(expr: String)  = string(expr).toFloat()
+    /** double 로 반환 */
     fun double(expr: String) = string(expr).toDouble()
+    /** bool 로 반환 */
     fun bool(expr: String)   = string(expr).toBoolean()
 
     ////////////////////////////////////////////////////////////////////////////////////

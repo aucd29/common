@@ -25,104 +25,104 @@ import android.widget.RelativeLayout
 
 // LinearLayout
 
-public fun LinearLayout.lp(w: Int, h: Int) {
+fun LinearLayout.lp(w: Int, h: Int) {
     layoutParams = LinearLayout.LayoutParams(w, h)
 }
 
-public fun LinearLayout.lpmm() {
+fun LinearLayout.lpmm() {
     layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
 }
 
-public fun LinearLayout.lpwm() {
+fun LinearLayout.lpwm() {
     layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT)
 }
 
-public fun LinearLayout.lpmw() {
+fun LinearLayout.lpmw() {
     layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
 }
 
-public fun LinearLayout.lpww() {
+fun LinearLayout.lpww() {
     layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
 }
 
 // RelativeLayout
 
-public fun RelativeLayout.lp(w: Int, h: Int) {
+fun RelativeLayout.lp(w: Int, h: Int) {
     layoutParams = RelativeLayout.LayoutParams(w, h)
 }
 
-public fun RelativeLayout.lpmm() {
+fun RelativeLayout.lpmm() {
     layoutParams = RelativeLayout.LayoutParams(
             RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT)
 }
 
-public fun RelativeLayout.lpwm() {
+fun RelativeLayout.lpwm() {
     layoutParams = RelativeLayout.LayoutParams(
             RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT)
 }
 
-public fun RelativeLayout.lpmw() {
+fun RelativeLayout.lpmw() {
     layoutParams = RelativeLayout.LayoutParams(
             RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
 }
 
-public fun RelativeLayout.lpww() {
+fun RelativeLayout.lpww() {
     layoutParams = RelativeLayout.LayoutParams(
             RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
 }
 
 // FrameLayout
 
-public fun FrameLayout.lp(w: Int, h: Int) {
+fun FrameLayout.lp(w: Int, h: Int) {
     layoutParams = FrameLayout.LayoutParams(w, h)
 }
 
-public fun FrameLayout.lpmm() {
+fun FrameLayout.lpmm() {
     layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
 }
 
-public fun FrameLayout.lpwm() {
+fun FrameLayout.lpwm() {
     layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT)
 }
 
-public fun FrameLayout.lpmw() {
+fun FrameLayout.lpmw() {
     layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT)
 }
 
-public fun FrameLayout.lpww() {
+fun FrameLayout.lpww() {
     layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
 }
 
 // ViewGroup
 
-public fun ViewGroup.lp(w: Int, h: Int) {
+fun ViewGroup.lp(w: Int, h: Int) {
     layoutParams = ViewGroup.LayoutParams(w, h)
 }
 
-public fun ViewGroup.lpmm() {
+fun ViewGroup.lpmm() {
     layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 }
 
-public fun ViewGroup.lpwm() {
+fun ViewGroup.lpwm() {
     layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
 }
 
-public fun ViewGroup.lpmw() {
+fun ViewGroup.lpmw() {
     layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 }
 
-public fun ViewGroup.lpww() {
+fun ViewGroup.lpww() {
     layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 }
