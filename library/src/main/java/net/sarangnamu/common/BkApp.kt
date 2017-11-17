@@ -14,29 +14,29 @@
 
 package net.sarangnamu.common
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.graphics.Point
 import android.view.WindowManager
+import java.lang.ref.WeakReference
 
 /**
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 9. 28.. <p/>
  */
-
 open class BkApp : Application() {
     companion object {
-        @SuppressLint("StaticFieldLeak")
-        lateinit var context: Context
+        lateinit var weak: WeakReference<Context>
         lateinit var screen: Point
+
         fun screenX() = screen.x
         fun screenY() = screen.y
+        fun context(): Context = weak.get()!!
     }
 
     override fun onCreate() {
         super.onCreate()
 
-        context = applicationContext
+        weak = WeakReference(applicationContext)
 
         val manager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
         manager.defaultDisplay.getSize(screen)
