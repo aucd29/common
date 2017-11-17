@@ -15,6 +15,11 @@ Step 2. Add the dependency
 
 ```gradle
 dependencies {
-	    compile 'com.github.aucd29:common:1.0.14'
+    compile 'com.github.aucd29:common:1.0.14'
 }
 ```
+```gradle
+# kotlin
+dependencies {
+    compile 'com.github.aucd29:common:2.0.1'
+}
