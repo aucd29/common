@@ -12,17 +12,16 @@
  * out of the use of the software.
  */
 
-package net.sarangnamu.common.ani
+package net.sarangnamu.common
 
 import android.animation.Animator
-import android.animation.Animator.AnimatorListener
 
 /**
- * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 9. 27.. <p/>
+ * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 11. 22.. <p/>
  */
 
 inline fun Animator.addEndListener(crossinline f: (Animator?) -> Unit) {
-    addListener(object : AnimatorListener {
+    addListener(object : Animator.AnimatorListener {
         override fun onAnimationStart(p0: Animator?) {}
         override fun onAnimationCancel(p0: Animator?) {}
         override fun onAnimationRepeat(p0: Animator?) {}

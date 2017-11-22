@@ -16,8 +16,10 @@ package net.sarangnamu.common
 
 import android.graphics.Bitmap
 import android.os.Build
+import android.view.Gravity
 import android.view.View
 import android.view.ViewTreeObserver
+import android.widget.TextView
 
 /*
  * Copyright (C) Hanwha S&C Ltd., 2017. All rights reserved.
@@ -82,4 +84,8 @@ fun View.capture(): Bitmap? {
     drawingCacheBackgroundColor = color
 
     return bmp
+}
+
+fun TextView.gravityCenter() {
+    gravity = Gravity.CENTER
 }
