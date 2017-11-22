@@ -12,21 +12,38 @@
  * out of the use of the software.
  */
 
-package net.sarangnamu.common.ui
+package net.sarangnamu.common
 
 import android.content.Context
-import android.os.Build
-import android.support.annotation.StringRes
+import android.graphics.Typeface
 import android.util.AttributeSet
-import android.view.ViewTreeObserver
-import android.widget.RelativeLayout
-import net.sarangnamu.common.BkDim
+import android.view.ViewGroup
+import android.widget.CheckedTextView
+import android.widget.EditText
+import android.widget.TextView
 
 /**
- * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 9. 28.. <p/>
+ * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 11. 22.. <p/>
  */
 
-abstract class RelativeBase : RelativeLayout {
+fun TextView.roboto() {
+    font("Roboto-Light")
+}
+
+fun TextView.font(name: String) {
+    typeface = Typeface.createFromAsset(context.assets, "fonts/$name.ttf")
+}
+
+fun ViewGroup.font(name: String) {
+    views.forEach {
+        when (it) {
+            is TextView -> it.font(name)
+            is ViewGroup -> it.font(name)
+        }
+    }
+}
+
+class RobotoLightTextView: TextView {
     constructor(context: Context) : super(context) {
         initLayout()
     }
@@ -39,13 +56,7 @@ abstract class RelativeBase : RelativeLayout {
         initLayout()
     }
 
-    protected fun string(@StringRes resid: Int) = context.resources.getString(resid)
-
-    ////////////////////////////////////////////////////////////////////////////////////
-    //
-    // abstract
-    //
-    ////////////////////////////////////////////////////////////////////////////////////
-
-    abstract fun initLayout()
+    protected fun initLayout() {
+        roboto()
+    }
 }
