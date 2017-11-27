@@ -14,8 +14,12 @@
 
 package net.sarangnamu.common
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.StateListDrawable
 import android.os.Build
+import android.support.v4.content.ContextCompat
 import android.view.Gravity
 import android.view.View
 import android.view.ViewTreeObserver
@@ -40,7 +44,8 @@ import android.widget.TextView
  */
 
 /**
- * https://antonioleiva.com/kotlin-ongloballayoutlistener/
+ * https://antonioleiva.com/kotlin-ongloballayoutlistener/\
+ * https://stackoverflow.com/questions/38827186/what-is-the-difference-between-crossinline-and-noinline-in-kotlin
  */
 @Suppress("DEPRECATION")
 inline fun View.layoutListener(crossinline f: () -> Unit) = with (viewTreeObserver) {
@@ -88,4 +93,51 @@ fun View.capture(): Bitmap? {
 
 fun TextView.gravityCenter() {
     gravity = Gravity.CENTER
+}
+
+fun Context.drawable(name: String): Drawable {
+    val id = resources.getIdentifier(name, "drawable", packageName)
+    return ContextCompat.getDrawable(this, id)
+}
+
+fun StateListDrawable.normalState(drawable: Drawable) {
+    addState(intArrayOf(), drawable)
+}
+
+fun StateListDrawable.pressedState(drawable: Drawable) {
+    addState(intArrayOf(android.R.attr.state_pressed), drawable)
+}
+
+fun StateListDrawable.disabledState(drawable: Drawable) {
+    addState(intArrayOf(-android.R.attr.state_enabled), drawable)
+}
+
+class ImageSelectorBase(private var context: Context) {
+    companion object {
+        val MASK: Int        = 0X1
+        val TP_DISABLED: Int = 0x1
+        val TP_PRESSED: Int  = 0x2
+        val TP_NORMAL: Int   = 0x3
+
+        val TP_DEFAULT: Int  = TP_NORMAL or TP_PRESSED
+        val TP_ALL: Int      = TP_DISABLED or TP_PRESSED or TP_NORMAL
+    }
+
+    var disableSuffix = "_disabled"
+    var pressedSuffix = "_pressed"
+    var normalSuffix  = "_normal"
+
+    fun select(name: String, type: Int): StateListDrawable {
+        val drawable = StateListDrawable()
+
+        (0..3).forEach { i ->
+            when (type and (MASK shl i)) {
+                TP_NORMAL ->  drawable.normalState(context.drawable(name + normalSuffix))
+                TP_PRESSED -> drawable.pressedState(context.drawable(name + pressedSuffix))
+                TP_DISABLED -> drawable.disabledState(context.drawable(name + disableSuffix))
+            }
+        }
+
+        return drawable
+    }
 }
