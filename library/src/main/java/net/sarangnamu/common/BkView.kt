@@ -20,9 +20,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Build
 import android.support.v4.content.ContextCompat
-import android.view.Gravity
-import android.view.View
-import android.view.ViewTreeObserver
+import android.view.*
 import android.widget.TextView
 
 /*
@@ -139,5 +137,13 @@ class ImageSelectorBase(private var context: Context) {
         }
 
         return drawable
+    }
+}
+
+fun Window.statusBar(color: Int) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        setStatusBarColor(color)
     }
 }
