@@ -14,16 +14,13 @@
 
 package net.sarangnamu.common
 
-import android.text.TextUtils
 import org.slf4j.LoggerFactory
 import org.w3c.dom.Document
 import org.xml.sax.InputSource
 import java.io.File
 import java.io.InputStream
 import java.io.StringReader
-import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
-import javax.xml.xpath.XPath
 import javax.xml.xpath.XPathConstants
 import javax.xml.xpath.XPathFactory
 

@@ -40,7 +40,7 @@ val FragmentManager.current: Fragment
 val FragmentManager.count: Int
     get() = backStackEntryCount
 
-fun FragmentManager.add(id: Int, clazz: Class<out Any>, listener: TransactionListener? = null) {
+fun FragmentManager.add(id: Int, clazz: Class<out Any>, listener: ((FragmentManager, FragmentTransaction) -> Unit)? = null) {
     val frgmt = clazz.newInstance() as Fragment
     val transaction = beginTransaction()
 
@@ -48,13 +48,13 @@ fun FragmentManager.add(id: Int, clazz: Class<out Any>, listener: TransactionLis
         return
     }
 
-    listener?.onEvent(this, transaction)
+    listener?.invoke(this, transaction)
 
     transaction.add(id, frgmt, frgmt.javaClass.name)
     transaction.commit()
 }
 
-fun FragmentManager.replace(id: Int, clazz: Class<out Any>, listener: TransactionListener? = null,
+fun FragmentManager.replace(id: Int, clazz: Class<out Any>, listener: ((FragmentManager, FragmentTransaction) -> Unit)? = null,
                             bundle: Bundle? = null, stack: Boolean = true): Fragment {
     val existFrgmt = findFragmentByTag(clazz.name)
     if (existFrgmt != null && existFrgmt.isVisible) {
@@ -66,10 +66,9 @@ fun FragmentManager.replace(id: Int, clazz: Class<out Any>, listener: Transactio
     val transaction = beginTransaction()
 
     bundle?.let { frgmt.arguments = it }
-    listener?.onEvent(this, transaction)
+    listener?.invoke(this, transaction)
 
     transaction.replace(id, frgmt, frgmt.javaClass.name)
-
     if (stack) {
         transaction.addToBackStack(frgmt.javaClass.name)
     }
@@ -96,14 +95,10 @@ fun FragmentTransaction.animate(anim: Int) {
     when (anim) {
         ANI_HORIZONTAL -> setCustomAnimations(R.anim.slide_in_current, R.anim.slide_in_next,
                 R.anim.slide_out_current, R.anim.slide_out_prev)
-        ANI_VERTICAL -> setCustomAnimations(R.anim.slide_up_current, R.anim.slide_up_next,
+        ANI_VERTICAL   -> setCustomAnimations(R.anim.slide_up_current, R.anim.slide_up_next,
                 R.anim.slide_down_current, R.anim.slide_down_prev)
         else -> setCustomAnimations(0, 0, 0, 0)
     }
-}
-
-interface TransactionListener {
-    fun onEvent(manager: FragmentManager, transaction: FragmentTransaction)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////

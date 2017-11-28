@@ -27,7 +27,7 @@ import android.widget.RelativeLayout
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 11. 22.. <p/>
  */
 
-fun ViewGroup.string(@StringRes resid: Int) = context.resources.getString(resid)
+fun View.string(@StringRes resid: Int) = context.resources.getString(resid)
 
 // https://antonioleiva.com/functional-operations-viewgroup-kotlin/
 val ViewGroup.views: List<View>
@@ -35,15 +35,15 @@ val ViewGroup.views: List<View>
 
 abstract class FrameBase : FrameLayout {
     constructor(context: Context) : super(context) {
-        initLayout()
+        this.initLayout()
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        initLayout()
+        this.initLayout()
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
-        initLayout()
+        this.initLayout()
     }
 
     abstract fun initLayout()
@@ -51,15 +51,15 @@ abstract class FrameBase : FrameLayout {
 
 abstract class LinearBase : LinearLayout {
     constructor(context: Context) : super(context) {
-        initLayout()
+        this.initLayout()
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        initLayout()
+        this.initLayout()
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
-        initLayout()
+        this.initLayout()
     }
 
     abstract fun initLayout()
@@ -67,15 +67,15 @@ abstract class LinearBase : LinearLayout {
 
 abstract class RelativeBase : RelativeLayout {
     constructor(context: Context) : super(context) {
-        initLayout()
+        this.initLayout()
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        initLayout()
+        this.initLayout()
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
-        initLayout()
+        this.initLayout()
     }
 
     abstract fun initLayout()

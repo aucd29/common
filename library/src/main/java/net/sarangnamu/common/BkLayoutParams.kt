@@ -15,6 +15,8 @@
 package net.sarangnamu.common
 
 import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -125,4 +127,34 @@ fun ViewGroup.lpmw() {
 fun ViewGroup.lpww() {
     layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+}
+
+// Window
+
+fun Window.lp(w: Int, h: Int) {
+    val lp = attributes
+    lp.width = w
+    lp.height = h
+
+    attributes = lp
+}
+
+fun Window.lpmm() {
+    attributes = WindowManager.LayoutParams(
+            WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+}
+
+fun Window.lpwm() {
+    attributes = WindowManager.LayoutParams(
+            WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.MATCH_PARENT)
+}
+
+fun Window.lpmw() {
+    attributes = WindowManager.LayoutParams(
+            WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+}
+
+fun Window.lpww() {
+    attributes = WindowManager.LayoutParams(
+            WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
 }
