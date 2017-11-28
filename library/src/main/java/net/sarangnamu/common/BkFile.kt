@@ -12,6 +12,7 @@
  * out of the use of the software.
  */
 
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
 import android.content.res.AssetManager

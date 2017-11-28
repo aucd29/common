@@ -12,6 +12,7 @@
  * out of the use of the software.
  */
 
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
 import android.annotation.SuppressLint
@@ -42,7 +43,7 @@ import java.io.File
 /**
  * pkgName 에 해당하는 앱이 foreground 인지 확인
  */
-fun Context.isForegroundApp(pkgName: String): Boolean {
+inline fun Context.isForegroundApp(pkgName: String): Boolean {
     val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
     return manager.runningAppProcesses.filter {
         it.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
@@ -52,24 +53,24 @@ fun Context.isForegroundApp(pkgName: String): Boolean {
 /**
  * 현재 앱이 foreground 인지 확인
  */
-fun Context.isForegroundApp(): Boolean {
+inline fun Context.isForegroundApp(): Boolean {
     return isForegroundApp(packageName)
 }
 
 /**
  * sdcard 내 app 경로 전달
  */
-fun Context.externalFilePath() = getExternalFilesDir(null).absolutePath
+inline fun Context.externalFilePath() = getExternalFilesDir(null).absolutePath
 
 /**
  * display density 반환
  */
-fun Context.displayDensity() = resources.displayMetrics.density
+inline fun Context.displayDensity() = resources.displayMetrics.density
 
 /**
  * open keyboard
  */
-fun Context.showKeyboard(view: View?) {
+inline fun Context.showKeyboard(view: View?) {
     view?.let {
         it.postDelayed({
             it.requestFocus()
@@ -82,7 +83,7 @@ fun Context.showKeyboard(view: View?) {
 /**
  * hide keyboard
  */
-fun Context.hideKeyboard(view: View?) {
+inline fun Context.hideKeyboard(view: View?) {
     view?.let {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(it.windowToken, 0)
@@ -92,7 +93,7 @@ fun Context.hideKeyboard(view: View?) {
 /**
  * force hide keyboard
  */
-fun Context.forceHideKeyboard(window: Window?) {
+inline fun Context.forceHideKeyboard(window: Window?) {
     window?.run { setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN) }
 }
 
@@ -100,7 +101,7 @@ fun Context.forceHideKeyboard(window: Window?) {
  * preference 설정
  */
 @SuppressLint("CommitPrefEdits")
-fun Context.config(param: Preference): String? {
+inline fun Context.config(param: Preference): String? {
     val pref = getSharedPreferences("burke.pref", Context.MODE_PRIVATE)
 
     if (param.write) {
@@ -155,19 +156,19 @@ class Preference {
 ////////////////////////////////////////////////////////////////////////////////////
 
 /** sdcard 가 존재하는지 확인 */
-fun Environment.hasSd() =
+inline fun Environment.hasSd() =
         Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
 
 /** data directory 에 사이즈 반환 */
-fun Environment.dataDirSize() =
+inline fun Environment.dataDirSize() =
         BkSystem.blockSize(Environment.getDataDirectory()).toFileSizeString()
 
 /** sdcard 사이즈 반환 */
-fun Environment.sdSize() =
+inline fun Environment.sdSize() =
         BkSystem.blockSize(Environment.getExternalStorageDirectory()).toFileSizeString()
 
 /** sdcard 경로 반환 */
-fun Environment.sdPath() =
+inline fun Environment.sdPath() =
         Environment.getExternalStorageDirectory().getAbsolutePath()
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -194,13 +195,13 @@ inline fun <T, R> T.trycatch(block: (T) -> R) : R {
 ////////////////////////////////////////////////////////////////////////////////////
 
 /** process kill */
-fun Activity.processKill() {
+inline fun Activity.processKill() {
     moveTaskToBack(true)
     finish()
     android.os.Process.killProcess(android.os.Process.myPid())
 }
 
-fun Activity.kill() {
+inline fun Activity.kill() {
     System.exit(0)
 }
 

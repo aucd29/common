@@ -12,6 +12,7 @@
  * out of the use of the software.
  */
 
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
 import android.app.Activity
@@ -23,16 +24,17 @@ import android.support.annotation.LayoutRes
 import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
-import android.view.WindowManager
 
 // https://kotlinlang.org/docs/tutorials/android-plugin.html
 import kotlinx.android.synthetic.main.dlg_license.*
 
 /**
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 11. 28.. <p/>
+ *
+ * 그냥 anko 를 쓸까? -_ -;;
  */
 
-class DialogParam(context: Context? = null, @StringRes title: Int = 0, @StringRes message: Int = 0) {
+class DialogParam(context: Context? = null, @StringRes message: Int = 0, @StringRes title: Int = 0) {
     init {
         context?.let {
             if (title != 0) {
@@ -47,20 +49,29 @@ class DialogParam(context: Context? = null, @StringRes title: Int = 0, @StringRe
 
     var title: String? = null
     var message: String? = null
-    var fullscreen = false
     var positive: ((DialogInterface) -> Unit)? = null
     var negative: ((DialogInterface) -> Unit)? = null
+
+    fun yesNo() {
+        positiveBtn = android.R.string.yes
+        negativeBtn = android.R.string.no
+    }
+
+    fun okCancel() {
+        positiveBtn = android.R.string.ok
+        negativeBtn = android.R.string.cancel
+    }
 
     @StringRes var positiveBtn = android.R.string.ok
     @StringRes var negativeBtn = android.R.string.cancel
     @LayoutRes var resid: Int = 0
 }
 
-fun Fragment.dialog(params: DialogParam): AlertDialog.Builder {
+inline fun Fragment.dialog(params: DialogParam): AlertDialog.Builder {
     return activity.dialog(params)
 }
 
-fun Activity.dialog(params: DialogParam): AlertDialog.Builder {
+inline fun Activity.dialog(params: DialogParam): AlertDialog.Builder {
     val bd = AlertDialog.Builder(this)
     bd.setPositiveButton(params.positiveBtn, { d, i -> d.dismiss(); params.positive?.invoke(d) })
 
@@ -75,11 +86,11 @@ fun Activity.dialog(params: DialogParam): AlertDialog.Builder {
     return bd
 }
 
-fun Fragment.loading(params: DialogParam): ProgressDialog {
+inline fun Fragment.loading(params: DialogParam): ProgressDialog {
     return activity.loading(params)
 }
 
-fun Activity.loading(params: DialogParam): ProgressDialog {
+inline fun Activity.loading(params: DialogParam): ProgressDialog {
     val bd = ProgressDialog(this)
     params.message?.let { bd.setMessage(it) }
     if (params.resid != 0) {
@@ -89,7 +100,7 @@ fun Activity.loading(params: DialogParam): ProgressDialog {
     return bd
 }
 
-fun Activity.showLicense(path: String = "file:///android_asset/license.html") {
+inline fun Activity.showLicense(path: String = "file:///android_asset/license.html") {
     val dlg = dialog(DialogParam().apply {
         resid = R.layout.dlg_license
     }).show()
@@ -100,6 +111,4 @@ fun Activity.showLicense(path: String = "file:///android_asset/license.html") {
     dlg.show()
 }
 
-fun Dialog.fullscreen() {
-    window.decorView.post { window.lpmm() }
-}
+inline fun Dialog.fullscreen() = window.decorView.post { window.lpmm() }

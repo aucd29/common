@@ -12,19 +12,20 @@
  * out of the use of the software.
  */
 
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
 /**
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 9. 27.. <p/>
  */
 
-fun Float.pixelToDp()    = this / BkApp.context().displayDensity()
-fun Float.dpToPixel()    = this * BkApp.context().displayDensity()
-fun Float.doToPixelInt() = (this * BkApp.context().displayDensity()).toInt()
+inline fun Float.pixelToDp()    = this / BkApp.context().displayDensity()
+inline fun Float.dpToPixel()    = this * BkApp.context().displayDensity()
+inline fun Float.doToPixelInt() = (this * BkApp.context().displayDensity()).toInt()
 
-fun Int.pixelToDp()      = this / BkApp.context().displayDensity()
-fun Int.dpToPixel()      = this * BkApp.context().displayDensity()
-fun Int.doToPixelFloat() = (this * BkApp.context().displayDensity())
+inline fun Int.pixelToDp()      = this / BkApp.context().displayDensity()
+inline fun Int.dpToPixel()      = this * BkApp.context().displayDensity()
+inline fun Int.doToPixelFloat() = (this * BkApp.context().displayDensity())
 
 class BkDim {
     companion object {

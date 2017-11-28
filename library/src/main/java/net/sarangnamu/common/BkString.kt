@@ -12,6 +12,7 @@
  * out of the use of the software.
  */
 
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
 import java.io.File
@@ -23,13 +24,13 @@ import java.io.File
 /**
  * 문자열 끝에 / 이 존재하는지 확인
  */
-fun CharSequence.isLastSlash(): Boolean =
+inline fun CharSequence.isLastSlash(): Boolean =
         !isEmpty() && lastIndexOf(File.separator) != -1
 
 /**
  * 문자열 끝에 / 를 붙임
  */
-fun String.addLastSlash(): String {
+inline fun String.addLastSlash(): String {
     if (isEmpty()) {
         return this
     }
@@ -44,19 +45,19 @@ fun String.addLastSlash(): String {
 /**
  * 파일명.확장자 반환
  */
-fun String.fileFullName(): String = substringAfterLast('/')
+inline fun String.fileFullName(): String = substringAfterLast('/')
 
 /**
  * 파일 경로만 반환
  */
-fun String.filePath(): String = substringBeforeLast('/', "")
+inline fun String.filePath(): String = substringBeforeLast('/', "")
 
 /**
  * 파일이름만 반환
  */
-fun String.fileName(): String = substringAfterLast('/')
+inline fun String.fileName(): String = substringAfterLast('/')
 
 /**
  * 파일 확장자만 반환
  */
-fun String.fileExtension(): String = fileFullName().substringBeforeLast('.')
+inline fun String.fileExtension(): String = fileFullName().substringBeforeLast('.')

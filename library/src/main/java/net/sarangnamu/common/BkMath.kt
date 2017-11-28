@@ -12,13 +12,14 @@
  * out of the use of the software.
  */
 
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
 /**
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 10. 16.. <p/>
  */
 
-fun Long.toFileSizeString(): String {
+inline fun Long.toFileSizeString(): String {
     var u = 0
     var size = this
 
@@ -34,7 +35,7 @@ fun Long.toFileSizeString(): String {
     return String.format("%.1f %cB", size / 1024f, " KMGTPE"[u])
 }
 
-fun Double.toFileSizeString(): String {
+inline fun Double.toFileSizeString(): String {
     var u = 0
     var size = this.toLong()
 

@@ -12,6 +12,7 @@
  * out of the use of the software.
  */
 
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
 import android.content.Context
@@ -27,10 +28,10 @@ import android.widget.RelativeLayout
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 11. 22.. <p/>
  */
 
-fun View.string(@StringRes resid: Int) = context.resources.getString(resid)
+inline fun View.string(@StringRes resid: Int) = context.resources.getString(resid)
 
 // https://antonioleiva.com/functional-operations-viewgroup-kotlin/
-val ViewGroup.views: List<View>
+inline val ViewGroup.views: List<View>
     get() = (0..childCount - 1).map { getChildAt(it) }
 
 abstract class FrameBase : FrameLayout {

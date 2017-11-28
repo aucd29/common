@@ -12,6 +12,7 @@
  * out of the use of the software.
  */
 
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
 import android.content.Context
@@ -46,7 +47,7 @@ inline fun View.layoutListener(crossinline f: () -> Unit) = with (viewTreeObserv
     })
 }
 
-fun View.capture(): Bitmap? {
+inline fun View.capture(): Bitmap? {
     clearFocus()
     isPressed = false
 
@@ -75,24 +76,24 @@ fun View.capture(): Bitmap? {
     return bmp
 }
 
-fun TextView.gravityCenter() {
+inline fun TextView.gravityCenter() {
     gravity = Gravity.CENTER
 }
 
-fun Context.drawable(name: String): Drawable {
+inline fun Context.drawable(name: String): Drawable {
     val id = resources.getIdentifier(name, "drawable", packageName)
     return ContextCompat.getDrawable(this, id)
 }
 
-fun StateListDrawable.normalState(drawable: Drawable) {
+inline fun StateListDrawable.normalState(drawable: Drawable) {
     addState(intArrayOf(), drawable)
 }
 
-fun StateListDrawable.pressedState(drawable: Drawable) {
+inline fun StateListDrawable.pressedState(drawable: Drawable) {
     addState(intArrayOf(android.R.attr.state_pressed), drawable)
 }
 
-fun StateListDrawable.disabledState(drawable: Drawable) {
+inline fun StateListDrawable.disabledState(drawable: Drawable) {
     addState(intArrayOf(-android.R.attr.state_enabled), drawable)
 }
 
@@ -134,7 +135,7 @@ abstract class SelectorBase(var context: Context) {
     abstract fun drawable(name : String): Drawable
 }
 
-fun Window.statusBar(color: Int) {
+inline fun Window.statusBar(color: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)

@@ -12,6 +12,7 @@
  * out of the use of the software.
  */
 
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
 import android.content.Context
@@ -22,7 +23,7 @@ import android.graphics.drawable.Drawable
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 11. 28.. <p/>
  */
 
-fun Context.color(name: String): ColorDrawable {
+inline fun Context.color(name: String): ColorDrawable {
     val id = resources.getIdentifier(name, "color", packageName)
     return ColorDrawable(id)
 }

@@ -12,6 +12,7 @@
  * out of the use of the software.
  */
 
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
 import android.os.Bundle
@@ -31,16 +32,16 @@ import org.slf4j.LoggerFactory
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 11. 22.. <p/>
  */
 
-val FragmentManager.frgmts: List<Fragment>
+inline val FragmentManager.frgmts: List<Fragment>
     get() = (0..backStackEntryCount - 1).map { findFragmentByTag(getBackStackEntryAt(it).name) }
 
-val FragmentManager.current: Fragment
+inline val FragmentManager.current: Fragment
     get() = frgmts.last()
 
-val FragmentManager.count: Int
+inline val FragmentManager.count: Int
     get() = backStackEntryCount
 
-fun FragmentManager.add(id: Int, clazz: Class<out Any>, listener: ((FragmentManager, FragmentTransaction) -> Unit)? = null) {
+inline fun FragmentManager.add(id: Int, clazz: Class<out Any>, noinline listener: ((FragmentManager, FragmentTransaction) -> Unit)? = null) {
     val frgmt = clazz.newInstance() as Fragment
     val transaction = beginTransaction()
 
@@ -54,7 +55,7 @@ fun FragmentManager.add(id: Int, clazz: Class<out Any>, listener: ((FragmentMana
     transaction.commit()
 }
 
-fun FragmentManager.replace(id: Int, clazz: Class<out Any>, listener: ((FragmentManager, FragmentTransaction) -> Unit)? = null,
+inline fun FragmentManager.replace(id: Int, clazz: Class<out Any>, noinline listener: ((FragmentManager, FragmentTransaction) -> Unit)? = null,
                             bundle: Bundle? = null, stack: Boolean = true): Fragment {
     val existFrgmt = findFragmentByTag(clazz.name)
     if (existFrgmt != null && existFrgmt.isVisible) {
@@ -78,20 +79,20 @@ fun FragmentManager.replace(id: Int, clazz: Class<out Any>, listener: ((Fragment
     return frgmt
 }
 
-fun FragmentManager.pop() {
+inline fun FragmentManager.pop() {
     popBackStack()
 }
 
-fun FragmentManager.popAll() {
+inline fun FragmentManager.popAll() {
     (0..count - 1).map { popBackStack(it, FragmentManager.POP_BACK_STACK_INCLUSIVE) }
 }
 
-val FragmentTransaction.ANI_HORIZONTAL: Int
+inline val FragmentTransaction.ANI_HORIZONTAL: Int
     get() = 1
-val FragmentTransaction.ANI_VERTICAL: Int
+inline val FragmentTransaction.ANI_VERTICAL: Int
     get() = 2
 
-fun FragmentTransaction.animate(anim: Int) {
+inline fun FragmentTransaction.animate(anim: Int) {
     when (anim) {
         ANI_HORIZONTAL -> setCustomAnimations(R.anim.slide_in_current, R.anim.slide_in_next,
                 R.anim.slide_out_current, R.anim.slide_out_prev)

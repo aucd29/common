@@ -12,6 +12,7 @@
  * out of the use of the software.
  */
 
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
 import android.content.Context
@@ -26,11 +27,11 @@ import android.widget.TextView
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 11. 22.. <p/>
  */
 
-fun TextView.roboto() {
+inline fun TextView.roboto() {
     font("Roboto-Light")
 }
 
-fun TextView.font(name: String) {
+inline fun TextView.font(name: String) {
     typeface = Typeface.createFromAsset(context.assets, "fonts/$name.ttf")
 }
 

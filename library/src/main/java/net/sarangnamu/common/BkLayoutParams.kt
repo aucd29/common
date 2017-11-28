@@ -12,6 +12,7 @@
  * out of the use of the software.
  */
 
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
 import android.view.ViewGroup
@@ -27,111 +28,111 @@ import android.widget.RelativeLayout
 
 // LinearLayout
 
-fun LinearLayout.lp(w: Int, h: Int) {
+inline fun LinearLayout.lp(w: Int, h: Int) {
     layoutParams = LinearLayout.LayoutParams(w, h)
 }
 
-fun LinearLayout.lpmm() {
+inline fun LinearLayout.lpmm() {
     layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
 }
 
-fun LinearLayout.lpwm() {
+inline fun LinearLayout.lpwm() {
     layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT)
 }
 
-fun LinearLayout.lpmw() {
+inline fun LinearLayout.lpmw() {
     layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
 }
 
-fun LinearLayout.lpww() {
+inline fun LinearLayout.lpww() {
     layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
 }
 
 // RelativeLayout
 
-fun RelativeLayout.lp(w: Int, h: Int) {
+inline fun RelativeLayout.lp(w: Int, h: Int) {
     layoutParams = RelativeLayout.LayoutParams(w, h)
 }
 
-fun RelativeLayout.lpmm() {
+inline fun RelativeLayout.lpmm() {
     layoutParams = RelativeLayout.LayoutParams(
             RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT)
 }
 
-fun RelativeLayout.lpwm() {
+inline fun RelativeLayout.lpwm() {
     layoutParams = RelativeLayout.LayoutParams(
             RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT)
 }
 
-fun RelativeLayout.lpmw() {
+inline fun RelativeLayout.lpmw() {
     layoutParams = RelativeLayout.LayoutParams(
             RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
 }
 
-fun RelativeLayout.lpww() {
+inline fun RelativeLayout.lpww() {
     layoutParams = RelativeLayout.LayoutParams(
             RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
 }
 
 // FrameLayout
 
-fun FrameLayout.lp(w: Int, h: Int) {
+inline fun FrameLayout.lp(w: Int, h: Int) {
     layoutParams = FrameLayout.LayoutParams(w, h)
 }
 
-fun FrameLayout.lpmm() {
+inline fun FrameLayout.lpmm() {
     layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
 }
 
-fun FrameLayout.lpwm() {
+inline fun FrameLayout.lpwm() {
     layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT)
 }
 
-fun FrameLayout.lpmw() {
+inline fun FrameLayout.lpmw() {
     layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT)
 }
 
-fun FrameLayout.lpww() {
+inline fun FrameLayout.lpww() {
     layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
 }
 
 // ViewGroup
 
-fun ViewGroup.lp(w: Int, h: Int) {
+inline fun ViewGroup.lp(w: Int, h: Int) {
     layoutParams = ViewGroup.LayoutParams(w, h)
 }
 
-fun ViewGroup.lpmm() {
+inline fun ViewGroup.lpmm() {
     layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 }
 
-fun ViewGroup.lpwm() {
+inline fun ViewGroup.lpwm() {
     layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
 }
 
-fun ViewGroup.lpmw() {
+inline fun ViewGroup.lpmw() {
     layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 }
 
-fun ViewGroup.lpww() {
+inline fun ViewGroup.lpww() {
     layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 }
 
 // Window
 
-fun Window.lp(w: Int, h: Int) {
+inline fun Window.lp(w: Int, h: Int) {
     val lp = attributes
     lp.width = w
     lp.height = h
@@ -139,22 +140,22 @@ fun Window.lp(w: Int, h: Int) {
     attributes = lp
 }
 
-fun Window.lpmm() {
+inline fun Window.lpmm() {
     attributes = WindowManager.LayoutParams(
             WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
 }
 
-fun Window.lpwm() {
+inline fun Window.lpwm() {
     attributes = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.MATCH_PARENT)
 }
 
-fun Window.lpmw() {
+inline fun Window.lpmw() {
     attributes = WindowManager.LayoutParams(
             WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
 }
 
-fun Window.lpww() {
+inline fun Window.lpww() {
     attributes = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
 }
