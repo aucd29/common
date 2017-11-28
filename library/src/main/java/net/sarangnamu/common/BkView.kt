@@ -110,7 +110,13 @@ fun StateListDrawable.disabledState(drawable: Drawable) {
     addState(intArrayOf(-android.R.attr.state_enabled), drawable)
 }
 
-class ImageSelectorBase(private var context: Context) {
+class DrawableSelector(context: Context): SelectorBase(context) {
+    override fun drawable(name: String): Drawable {
+        return context.drawable(name)
+    }
+}
+
+abstract class SelectorBase(var context: Context) {
     companion object {
         val MASK: Int        = 0X1
         val TP_DISABLED: Int = 0x1
@@ -130,14 +136,16 @@ class ImageSelectorBase(private var context: Context) {
 
         (0..3).forEach { i ->
             when (type and (MASK shl i)) {
-                TP_NORMAL ->  drawable.normalState(context.drawable(name + normalSuffix))
-                TP_PRESSED -> drawable.pressedState(context.drawable(name + pressedSuffix))
-                TP_DISABLED -> drawable.disabledState(context.drawable(name + disableSuffix))
+                TP_NORMAL   -> drawable.normalState(drawable(name + normalSuffix))
+                TP_PRESSED  -> drawable.pressedState(drawable(name + pressedSuffix))
+                TP_DISABLED -> drawable.disabledState(drawable(name + disableSuffix))
             }
         }
 
         return drawable
     }
+
+    abstract fun drawable(name : String): Drawable
 }
 
 fun Window.statusBar(color: Int) {
