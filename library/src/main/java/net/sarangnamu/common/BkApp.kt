@@ -12,12 +12,19 @@
  * out of the use of the software.
  */
 
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.graphics.Point
+import android.os.Build
+import android.support.annotation.StringRes
+import android.support.design.widget.Snackbar
+import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import java.lang.ref.WeakReference
 
 /**

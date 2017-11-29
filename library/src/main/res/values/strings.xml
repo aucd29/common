@@ -1,3 +1,4 @@
 <resources>
     <string name="ui_dlg_license">License</string>
+    <string name="activity_click_exit_again">Click exit again</string>
 </resources>

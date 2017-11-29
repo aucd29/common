@@ -73,15 +73,18 @@ inline fun Fragment.dialog(params: DialogParam): AlertDialog.Builder {
 
 inline fun Activity.dialog(params: DialogParam): AlertDialog.Builder {
     val bd = AlertDialog.Builder(this)
-    bd.setPositiveButton(params.positiveBtn, { d, i -> d.dismiss(); params.positive?.invoke(d) })
 
-    params.title?.let { bd.setTitle(it) }
-    params.message?.let { bd.setMessage(it) }
-    params.negative?.let { bd.setNegativeButton(params.negativeBtn, { d, i -> d.dismiss(); it(d) }) }
+    with (params) { with (bd) {
+        setPositiveButton(positiveBtn, { d, i -> d.dismiss(); positive?.invoke(d) })
 
-    if (params.resid != 0) {
-        bd.setView(params.resid)
-    }
+        title?.let { setTitle(it) }
+        message?.let { setMessage(it) }
+        negative?.let { setNegativeButton(negativeBtn, { d, i -> d.dismiss(); it(d) }) }
+
+        if (resid != 0) {
+            setView(resid)
+        }
+    } }
 
     return bd
 }
@@ -92,23 +95,26 @@ inline fun Fragment.loading(params: DialogParam): ProgressDialog {
 
 inline fun Activity.loading(params: DialogParam): ProgressDialog {
     val bd = ProgressDialog(this)
-    params.message?.let { bd.setMessage(it) }
-    if (params.resid != 0) {
-        bd.setContentView(params.resid)
-    }
+
+    with (params) { with (bd) {
+        message?.let { setMessage(it) }
+        if (resid != 0) {
+            setContentView(resid)
+        }
+    } }
 
     return bd
 }
 
 inline fun Activity.showLicense(path: String = "file:///android_asset/license.html") {
-    val dlg = dialog(DialogParam().apply {
+    dialog(DialogParam().apply {
         resid = R.layout.dlg_license
-    }).show()
-
-    dlg.title.roboto()
-    dlg.web.loadUrl(path)
-    dlg.fullscreen()
-    dlg.show()
+    }).show().run {
+        title.roboto()
+        web.loadUrl(path)
+        fullscreen()
+        show()
+    }
 }
 
 inline fun Dialog.fullscreen() = window.decorView.post { window.lpmm() }
