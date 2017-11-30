@@ -32,6 +32,9 @@ inline fun Activity.processKill() {
     android.os.Process.killProcess(android.os.Process.myPid())
 }
 
+/**
+ * app 강제 종료
+ */
 inline fun Activity.kill() {
     try {
         System.runFinalizersOnExit(true)
