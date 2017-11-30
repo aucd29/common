@@ -27,6 +27,7 @@ import android.support.v7.app.AlertDialog
 
 // https://kotlinlang.org/docs/tutorials/android-plugin.html
 import kotlinx.android.synthetic.main.dlg_license.*
+import java.util.*
 
 /**
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 11. 28.. <p/>
@@ -51,6 +52,7 @@ class DialogParam(context: Context? = null, @StringRes message: Int = 0, @String
     var message: String? = null
     var positive: ((DialogInterface) -> Unit)? = null
     var negative: ((DialogInterface) -> Unit)? = null
+    var textOnly: Boolean = false
 
     fun yesNo() {
         positiveBtn = android.R.string.yes
@@ -75,11 +77,13 @@ inline fun Activity.dialog(params: DialogParam): AlertDialog.Builder {
     val bd = AlertDialog.Builder(this)
 
     with (params) { with (bd) {
-        setPositiveButton(positiveBtn, { d, i -> d.dismiss(); positive?.invoke(d) })
+        if (!textOnly) {
+            setPositiveButton(positiveBtn, { d, i -> d.dismiss(); positive?.invoke(d) })
+            negative?.let { setNegativeButton(negativeBtn, { d, i -> d.dismiss(); it(d) }) }
+        }
 
         title?.let { setTitle(it) }
         message?.let { setMessage(it) }
-        negative?.let { setNegativeButton(negativeBtn, { d, i -> d.dismiss(); it(d) }) }
 
         if (resid != 0) {
             setView(resid)
@@ -87,6 +91,13 @@ inline fun Activity.dialog(params: DialogParam): AlertDialog.Builder {
     } }
 
     return bd
+}
+
+inline fun Activity.dialog(params: DialogParam, delayMillis: Long) {
+    params.textOnly = true
+
+    val dlg = dialog(params).show()
+    window.decorView.postDelayed({ dlg.dismiss() }, delayMillis)
 }
 
 inline fun Fragment.loading(params: DialogParam): ProgressDialog {
