@@ -93,11 +93,11 @@ inline fun Activity.dialog(params: DialogParam): AlertDialog.Builder {
     return bd
 }
 
-inline fun Activity.dialog(params: DialogParam, delayMillis: Long) {
+inline fun Activity.dialog(params: DialogParam, killTimeMillis: Long) {
     params.textOnly = true
 
     val dlg = dialog(params).show()
-    window.decorView.postDelayed({ dlg.dismiss() }, delayMillis)
+    window.decorView.postDelayed({ dlg.dismiss() }, killTimeMillis)
 }
 
 inline fun Fragment.loading(params: DialogParam): ProgressDialog {
