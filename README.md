@@ -21,5 +21,16 @@ dependencies {
 ```gradle
 # kotlin
 dependencies {
-    compile 'com.github.aucd29:common:2.0.2'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+
+    implementation('com.github.tony19:logback-android-classic:1.1.1-3') {
+        exclude group: 'com.google.android', module: 'android'
+    }
+    implementation ('com.github.tony19:logback-android-core:1.1.1-3')  {
+        exclude group: 'com.google.android', module: 'android'
+    }
+    implementation 'org.slf4j:slf4j-api:1.7.5'
+
+    implementation 'com.github.aucd29:common:2.0.2'
 }
