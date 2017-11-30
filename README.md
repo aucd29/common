@@ -31,6 +31,7 @@ dependencies {
         exclude group: 'com.google.android', module: 'android'
     }
     implementation 'org.slf4j:slf4j-api:1.7.5'
+    implementation 'com.google.android.gms:play-services-ads:8.3.0'
 
-    implementation 'com.github.aucd29:common:2.0.2'
+    implementation 'com.github.aucd29:common:2.0.3'
 }
