@@ -32,8 +32,6 @@ dependencies {
     }
     implementation 'org.slf4j:slf4j-api:1.7.5'
 
-    // 기본 compat 을 뺄가 싶었는데 그래도 넣는게 나아서 일단은 넣는 걸로 결정.
-    // 단 butterknife 나 retrolambda 는 제거
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
