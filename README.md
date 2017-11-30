@@ -21,5 +21,5 @@ dependencies {
 ```gradle
 # kotlin
 dependencies {
-    compile 'com.github.aucd29:common:2.0.1'
+    compile 'com.github.aucd29:common:2.0.2'
 }
