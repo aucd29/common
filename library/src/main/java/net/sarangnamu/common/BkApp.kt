@@ -32,12 +32,12 @@ import java.lang.ref.WeakReference
  */
 open class BkApp : Application() {
     companion object {
-        lateinit var weak: WeakReference<Context>
-        lateinit var screen: Point
+        var weak: WeakReference<Context>? = null
+        var screen: Point = Point()
 
         fun screenX() = screen.x
         fun screenY() = screen.y
-        fun context(): Context = weak.get()!!
+        fun context(): Context = weak?.get()!!
     }
 
     override fun onCreate() {

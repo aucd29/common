@@ -60,8 +60,8 @@ fun File.copy(target: File, listener:FileListener? = null) {
     }
 
     listener?.run {
-        if (total == 0.0) {
-            total = totalLength().toDouble()
+        if (total == 0L) {
+            total = totalLength()
         }
     }
 
@@ -132,7 +132,7 @@ private fun InputStream.copyFile(target: File, listener: FileListener? = null) {
                 return
             }
 
-            if (total == 0.0) {
+            if (total == 0L) {
                 finish(FileListener.DONE)
             } else {
                 if (percent == 100) {
@@ -152,8 +152,8 @@ private fun InputStream.copyFile(target: File, listener: FileListener? = null) {
 fun AssetManager.copy(srcPath: String, destPath: String, listener: FileListener? = null) {
     val list = this.list(srcPath)
     listener?.let {
-        if (it.total == 0.0) {
-            it.total = this.totalLength(srcPath).toDouble()
+        if (it.total == 0L) {
+            it.total = this.totalLength(srcPath)
         }
     }
 
@@ -214,13 +214,13 @@ abstract class FileListener {
 
     var cancel = false
     var percent: Int = 0
-    var current: Double = 0.0
-    var total: Double = 0.0
+    var current: Long = 0
+    var total: Long = 0
     val ignore: Boolean = false
 
     open fun progress() {
-        if (total != 0.0 && !ignore) {
-            percent = (current / total * 100).toInt()
+        if (total != 0L && !ignore) {
+            percent = (current.toDouble() / total.toDouble() * 100.0).toInt()
         }
     }
 

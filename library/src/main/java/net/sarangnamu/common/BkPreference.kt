@@ -41,10 +41,14 @@ inline fun Context.config(param: Preference): String? {
     } else {
         // read mode
         val value = pref.getString(param.key, param.value)
-        return value?.let { String(Base64.decode(it, Base64.DEFAULT)) } ?: value
+        return value?.decodeBase64()
     }
 
     return null
+}
+
+inline fun Context.pref(param: Preference): String? {
+    return config(param)
 }
 
 class Preference {
@@ -70,7 +74,7 @@ class Preference {
     }
 
     private fun data(key: String, value: String?) {
-        this.key = key
-        this.value = value?.let { Base64.encodeToString(it.toByteArray(), Base64.DEFAULT) } ?: value
+        this.key   = key
+        this.value = value?.encodeBase64()
     }
 }

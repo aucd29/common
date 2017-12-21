@@ -21,6 +21,7 @@ import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.CheckedTextView
 import android.widget.EditText
+import android.widget.RadioGroup
 import android.widget.TextView
 
 /**
@@ -43,6 +44,15 @@ fun ViewGroup.font(name: String) {
         }
     }
 }
+
+//fun RadioGroup.font(name: String) {
+//    views.forEach {
+//        when (it) {
+//            is TextView -> it.font(name)
+//            is ViewGroup -> it.font(name)
+//        }
+//    }
+//}
 
 class RobotoLightTextView: TextView {
     constructor(context: Context) : super(context) {

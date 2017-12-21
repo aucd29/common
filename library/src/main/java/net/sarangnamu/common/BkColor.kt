@@ -16,8 +16,11 @@
 package net.sarangnamu.common
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.support.annotation.ColorRes
+import android.support.v4.content.ContextCompat
 
 /**
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 11. 28.. <p/>
@@ -27,6 +30,9 @@ inline fun Context.color(name: String): ColorDrawable {
     val id = resources.getIdentifier(name, "color", packageName)
     return ColorDrawable(id)
 }
+
+inline fun Context.color(@ColorRes resid: Int): Int = ContextCompat.getColor(this, resid)
+inline fun Context.colorList(@ColorRes resid: Int): ColorStateList = ContextCompat.getColorStateList(this, resid)
 
 class ColorSelector(context: Context): SelectorBase(context) {
     override fun drawable(name: String): Drawable {

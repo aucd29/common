@@ -19,6 +19,7 @@ import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.support.annotation.DimenRes
 
 /**
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 11. 30.. <p/>
@@ -42,10 +43,29 @@ fun Drawable.bitmap(config: Bitmap.Config = Bitmap.Config.ARGB_8888): Bitmap {
 
 fun Bitmap.resize(w: Int, h: Int): Bitmap {
     val matrix = Matrix()
-    val scaleW = (w / width).toFloat()
-    val scaleH = (h / height).toFloat()
+    val scaleW = w.toFloat() / width.toFloat()
+    val scaleH = h.toFloat() / height.toFloat()
 
     matrix.postScale(scaleW, scaleH)
 
     return Bitmap.createBitmap(this, 0, 0, width, height, matrix, false)
+}
+
+fun Bitmap.ratioResize(@DimenRes resid: Int): Bitmap {
+    val context = BkApp.context()
+    val size = context.resources.getDimensionPixelSize(resid)
+
+    if (width > height) {
+        return if (width > size) {
+            val scale = size / width
+            resize(width * scale, height * scale)
+        } else this
+    } else if (height > width) {
+        return if (height > size) {
+            val scale = size / height
+            resize(width * scale, height * scale)
+        } else this
+    } else {
+        return if (width > size) resize(size, size) else this
+    }
 }

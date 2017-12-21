@@ -15,6 +15,10 @@
 @file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
+import android.util.Base64
 import java.io.File
 
 /**
@@ -61,3 +65,14 @@ inline fun String.fileName(): String = substringAfterLast('/')
  * 파일 확장자만 반환
  */
 inline fun String.fileExtension(): String = fileFullName().substringBeforeLast('.')
+
+inline fun String.encodeBase64(): String = Base64.encodeToString(this.toByteArray(), Base64.DEFAULT)
+inline fun String.decodeBase64(): String = String(Base64.decode(this, Base64.DEFAULT))
+
+inline fun String.html(): Spanned {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
+    } else {
+        Html.fromHtml(this)
+    }
+}

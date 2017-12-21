@@ -18,16 +18,18 @@ package net.sarangnamu.common
 import android.app.Activity
 import android.app.Dialog
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.support.annotation.LayoutRes
 import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
+import android.view.View
+import android.view.WindowManager
+import android.widget.FrameLayout
 
 // https://kotlinlang.org/docs/tutorials/android-plugin.html
-import kotlinx.android.synthetic.main.dlg_license.*
-import java.util.*
+import kotlinx.android.synthetic.main.dlg_web.*
+import kotlinx.android.synthetic.main.dlg_web.view.*
 
 /**
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 11. 28.. <p/>
@@ -35,37 +37,33 @@ import java.util.*
  * 그냥 anko 를 쓸까? -_ -;;
  */
 
-class DialogParam(context: Context? = null, @StringRes message: Int = 0, @StringRes title: Int = 0) {
-    init {
-        context?.let {
-            if (title != 0) {
-                this.title = it.getString(title)
-            }
+class DialogParam(@StringRes message: Int = 0, @StringRes title: Int = 0): DlgParam(message) {
+    var title: String? = BkApp.context().string(title)
 
-            if (message != 0) {
-                this.message = it.getString(message)
-            }
-        }
-    }
-
-    var title: String? = null
-    var message: String? = null
     var positive: ((DialogInterface) -> Unit)? = null
     var negative: ((DialogInterface) -> Unit)? = null
-    var textOnly: Boolean = false
+    var hideButton: Boolean = false
 
     fun yesNo() {
-        positiveBtn = android.R.string.yes
-        negativeBtn = android.R.string.no
+        positiveText = android.R.string.yes
+        negativeText = android.R.string.no
     }
 
     fun okCancel() {
-        positiveBtn = android.R.string.ok
-        negativeBtn = android.R.string.cancel
+        positiveText = android.R.string.ok
+        negativeText = android.R.string.cancel
     }
 
-    @StringRes var positiveBtn = android.R.string.ok
-    @StringRes var negativeBtn = android.R.string.cancel
+    @StringRes var positiveText = android.R.string.ok
+    @StringRes var negativeText = android.R.string.cancel
+}
+
+open class LoadingParam(@StringRes message: Int = 0): DlgParam(message) {
+    var style_horizontal = false
+}
+
+open class DlgParam(@StringRes message: Int = 0) {
+    var message: String? = BkApp.context().getString(message)
     @LayoutRes var resid: Int = 0
 }
 
@@ -77,9 +75,9 @@ inline fun Activity.dialog(params: DialogParam): AlertDialog.Builder {
     val bd = AlertDialog.Builder(this)
 
     with (params) { with (bd) {
-        if (!textOnly) {
-            setPositiveButton(positiveBtn, { d, i -> d.dismiss(); positive?.invoke(d) })
-            negative?.let { setNegativeButton(negativeBtn, { d, i -> d.dismiss(); it(d) }) }
+        if (!hideButton && resid == 0) {
+            setPositiveButton(positiveText, { d, i -> d.dismiss(); positive?.invoke(d) })
+            negative?.let { setNegativeButton(negativeText, { d, i -> d.dismiss(); it(d) }) }
         }
 
         title?.let { setTitle(it) }
@@ -94,38 +92,64 @@ inline fun Activity.dialog(params: DialogParam): AlertDialog.Builder {
 }
 
 inline fun Activity.dialog(params: DialogParam, killTimeMillis: Long) {
-    params.textOnly = true
-
     val dlg = dialog(params).show()
     window.decorView.postDelayed({ dlg.dismiss() }, killTimeMillis)
 }
 
-inline fun Fragment.loading(params: DialogParam): ProgressDialog {
+inline fun Fragment.loading(params: LoadingParam): ProgressDialog {
     return activity.loading(params)
 }
 
-inline fun Activity.loading(params: DialogParam): ProgressDialog {
+inline fun Activity.loading(params: LoadingParam): ProgressDialog {
     val bd = ProgressDialog(this)
+
+    if (params.style_horizontal) {
+        bd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+    } else {
+        bd.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+    }
 
     with (params) { with (bd) {
         message?.let { setMessage(it) }
         if (resid != 0) {
-            setContentView(resid)
+            setView(layoutInflater.inflate(resid, null))
         }
     } }
 
     return bd
 }
 
-inline fun Activity.showLicense(path: String = "file:///android_asset/license.html") {
+inline fun Activity.browser(url: String, @StringRes titleId: Int = 0) {
     dialog(DialogParam().apply {
-        resid = R.layout.dlg_license
+        resid = R.layout.dlg_web
+        if (titleId != 0) {
+            title = string(titleId)
+        }
     }).show().run {
-        title.roboto()
-        web.loadUrl(path)
+        web.run {
+            loadUrl(url)
+            web.layoutParams = FrameLayout.LayoutParams(BkApp.screenX(), BkApp.screenY())
+        }
         fullscreen()
-        show()
     }
 }
 
-inline fun Dialog.fullscreen() = window.decorView.post { window.lpmm() }
+inline fun Dialog.fullscreen() {
+    window.run {
+        val attr = attributes
+        attr.run {
+            width = WindowManager.LayoutParams.MATCH_PARENT
+            height = WindowManager.LayoutParams.MATCH_PARENT
+        }
+        attributes = attr
+
+        setBackgroundDrawableResource(android.R.color.transparent)
+    }
+}
+
+inline fun ProgressDialog.progressFileSize(unit: Int, value: Long) {
+    setProgress((value shr (10 * unit)).toInt())
+    setProgressNumberFormat(value.toFileSizeString(unit))
+}
+
+

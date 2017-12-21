@@ -17,6 +17,15 @@ package net.sarangnamu.common
 
 import android.app.ActivityManager
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.os.Environment
+import android.support.annotation.ColorRes
+import android.support.annotation.DrawableRes
+import android.support.annotation.IntegerRes
+import android.support.annotation.StringRes
+import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -82,3 +91,28 @@ inline fun Context.hideKeyboard(view: View?) {
 inline fun Context.forceHideKeyboard(window: Window?) {
     window?.run { setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN) }
 }
+
+inline fun Context.string(@StringRes resid: Int): String? = getString(resid)
+inline fun Context.drawable(@DrawableRes resid: Int): Drawable? = ContextCompat.getDrawable(this, resid)
+
+////////////////////////////////////////////////////////////////////////////////////
+//
+// ENVIRONMENT EXTENSION
+//
+////////////////////////////////////////////////////////////////////////////////////
+
+/** sdcard 가 존재하는지 확인 */
+inline fun Context.hasSd() =
+        Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
+
+/** data directory 에 사이즈 반환 */
+inline fun Context.dataDirSize() =
+        BkSystem.blockSize(Environment.getDataDirectory()).toFileSizeString()
+
+/** sdcard 사이즈 반환 */
+inline fun Context.sdSize() =
+        BkSystem.blockSize(Environment.getExternalStorageDirectory()).toFileSizeString()
+
+/** sdcard 경로 반환 */
+inline fun Context.sdPath() =
+        Environment.getExternalStorageDirectory().getAbsolutePath()

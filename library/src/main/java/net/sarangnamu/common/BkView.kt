@@ -142,3 +142,4 @@ inline fun Window.statusBar(color: Int) {
         setStatusBarColor(color)
     }
 }
+

@@ -36,28 +36,6 @@ import java.io.File
 
 ////////////////////////////////////////////////////////////////////////////////////
 //
-// ENVIRONMENT EXTENSION
-//
-////////////////////////////////////////////////////////////////////////////////////
-
-/** sdcard 가 존재하는지 확인 */
-inline fun Environment.hasSd() =
-        Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
-
-/** data directory 에 사이즈 반환 */
-inline fun Environment.dataDirSize() =
-        BkSystem.blockSize(Environment.getDataDirectory()).toFileSizeString()
-
-/** sdcard 사이즈 반환 */
-inline fun Environment.sdSize() =
-        BkSystem.blockSize(Environment.getExternalStorageDirectory()).toFileSizeString()
-
-/** sdcard 경로 반환 */
-inline fun Environment.sdPath() =
-        Environment.getExternalStorageDirectory().getAbsolutePath()
-
-////////////////////////////////////////////////////////////////////////////////////
-//
 //
 //
 ////////////////////////////////////////////////////////////////////////////////////
