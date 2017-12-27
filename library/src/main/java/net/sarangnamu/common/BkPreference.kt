@@ -70,7 +70,7 @@ class Preference {
      */
     fun write(key: String, value: String?) {
         data(key, value)
-        write = false
+        write = true
     }
 
     private fun data(key: String, value: String?) {

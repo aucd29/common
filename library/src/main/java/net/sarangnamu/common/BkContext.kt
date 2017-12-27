@@ -15,11 +15,15 @@
 @file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
+import android.app.Activity
 import android.app.ActivityManager
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.os.AsyncTask
 import android.os.Environment
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
@@ -116,3 +120,17 @@ inline fun Context.sdSize() =
 /** sdcard 경로 반환 */
 inline fun Context.sdPath() =
         Environment.getExternalStorageDirectory().getAbsolutePath()
+
+fun Context.async(background: (() -> Boolean)? = null, post: ((result: Boolean) -> Unit)? = null) {
+    Async(background, post).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+}
+
+fun Context.clipboard(key: String): String? {
+    val manager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    return manager.primaryClip?.getItemAt(0)?.text.toString()
+}
+
+fun Context.clipboard(key: String, value: String?) {
+    val manager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    manager.primaryClip = ClipData.newPlainText(key, value)
+}

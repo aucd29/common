@@ -19,6 +19,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Environment
 import android.os.StatFs
@@ -47,6 +48,17 @@ inline fun <T, R> T.trycatch(block: (T) -> R) : R {
     } catch (e: Exception) {
         Log.e("trycatch", "ERROR: " + e.message)
         throw e
+    }
+}
+
+internal class Async(val background: (() -> Boolean)?, val post: ((result: Boolean) -> Unit)?)
+    : AsyncTask<Void, Void, Boolean>() {
+    override fun doInBackground(vararg params: Void?): Boolean {
+        return background?.invoke() ?: true
+    }
+
+    override fun onPostExecute(result: Boolean) {
+        post?.invoke(result)
     }
 }
 

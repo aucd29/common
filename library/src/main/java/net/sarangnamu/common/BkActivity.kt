@@ -15,6 +15,7 @@
 package net.sarangnamu.common
 
 import android.app.Activity
+import android.os.AsyncTask
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
@@ -89,4 +90,8 @@ open class AppCloser(var activity: Activity, var view: View? = null) {
             toast?.show()
         }
     }
+}
+
+fun Activity.async(background: (() -> Boolean)? = null, post: ((result: Boolean) -> Unit)? = null) {
+    Async(background, post).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
 }
