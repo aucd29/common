@@ -1,22 +1,25 @@
 /*
- * Copyright (C) Hanwha S&C Ltd., 2017. All rights reserved.
+ * Copyright 2016 Burke Choi All rights reserved.
+ *             http://www.sarangnamu.net
  *
- * This software is covered by the license agreement between
- * the end user and Hanwha S&C Ltd., and may be
- * used and copied only in accordance with the terms of the
- * said agreement.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Hanwha S&C Ltd., assumes no responsibility or
- * liability for any errors or inaccuracies in this software,
- * or any consequential, incidental or indirect damage arising
- * out of the use of the software.
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 @file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
 /**
- * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2017. 9. 27.. <p/>
+ * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2017. 9. 27.. <p/>
  */
 
 inline fun Float.pixelToDp()    = this / BkApp.context().displayDensity()
