@@ -150,9 +150,53 @@ inline fun Dialog.fullscreen() {
     }
 }
 
-inline fun ProgressDialog.progressFileSize(unit: Int, value: Long) {
-    setProgress((value shr (10 * unit)).toInt())
-    setProgressNumberFormat(value.toFileSizeString(unit))
+//inline fun ProgressDialog.progressFileSize(unit: Int, value: Long) {
+//    setProgress((value shr (10 * unit)).toInt())
+//    setProgressNumberFormat(value.toFileSizeString(unit))
+//}
+
+class ProgressNumberFormat(val progress: ProgressDialog, val maxValue: Long) {
+    var unitCount: Int = 0
+    var unitChar: Char
+    var totalSize: String
+
+    init {
+        calUnitCount()
+
+        var count = unitCount
+        if (maxValue > 1024) {
+            ++count
+        }
+
+        progress.max = calSize(maxValue).toInt()
+
+        unitChar  = " KMGTPE"[count]
+        totalSize = String.format("%.1f%cB", progress.max.toFloat() / 1024f, unitChar)
+
+        formatString(0)
+    }
+
+    private fun calUnitCount() {
+        var size = maxValue
+
+        while (size > 1024 * 1024) {
+            unitCount++
+            size = size shr 10
+        }
+    }
+
+    private fun calSize(value: Long): Long {
+        return (value shr (10 * unitCount))
+    }
+
+    fun formatString(current: Long) {
+        val value  = calSize(current).toInt()
+        val format = String.format("%.1f%cB/%s", value.toFloat() / 1024f, unitChar, totalSize)
+
+        progress.progress = value
+        progress.setProgressNumberFormat(format)
+    }
 }
+
 
 
