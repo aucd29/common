@@ -83,7 +83,7 @@ inline fun TextView.gravityCenter() {
     gravity = Gravity.CENTER
 }
 
-inline fun Context.drawable(name: String): Drawable {
+inline fun Context.drawable(name: String): Drawable? {
     val id = resources.getIdentifier(name, "drawable", packageName)
     return ContextCompat.getDrawable(this, id)
 }
@@ -102,7 +102,7 @@ inline fun StateListDrawable.disabledState(drawable: Drawable) {
 
 class DrawableSelector(context: Context): SelectorBase(context) {
     override fun drawable(name: String): Drawable {
-        return context.drawable(name)
+        return context.drawable(name)!!
     }
 }
 

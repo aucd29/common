@@ -18,6 +18,7 @@
 @file:Suppress("NOTHING_TO_INLINE", "unused")
 package net.sarangnamu.common
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.ClipData
@@ -26,7 +27,10 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.AsyncTask
+import android.os.Build
 import android.os.Environment
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
@@ -136,4 +140,25 @@ fun Context.clipboard(key: String): String? {
 fun Context.clipboard(key: String, value: String?) {
     val manager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     manager.primaryClip = ClipData.newPlainText(key, value)
+}
+
+@SuppressLint("MissingPermission")
+fun Context.isNetworkConnected() : Boolean {
+    val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        manager.allNetworks?.forEach {
+            if (manager.getNetworkInfo(it).state == NetworkInfo.State.CONNECTED) {
+                return true
+            }
+        }
+    } else {
+        manager.allNetworkInfo.forEach {
+            if (it == NetworkInfo.State.CONNECTED) {
+                return true
+            }
+        }
+    }
+
+    return false
 }

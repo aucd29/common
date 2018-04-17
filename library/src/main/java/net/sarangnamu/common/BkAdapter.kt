@@ -20,6 +20,7 @@ package net.sarangnamu.common
 
 import android.content.Context
 import android.support.annotation.LayoutRes
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -60,13 +61,13 @@ import java.lang.reflect.ParameterizedType
  */
 
 abstract class V7Adapter<T, H: RecyclerView.ViewHolder>(
-        var context: Context,
-        @LayoutRes var id: Int,
-        var dataList: ArrayList<T>) : RecyclerView.Adapter<H>() {
+        protected val context: Context,
+        protected @LayoutRes val id: Int,
+        protected var dataList: ArrayList<T>) : RecyclerView.Adapter<H>() {
 
     var clickListener: ((View, Int) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): H {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): H {
         val klass       = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<H>
         val constructor = klass.getDeclaredConstructor(*arrayOf<Class<*>>(View::class.java))
         val view        = LayoutInflater.from(context).inflate(id, parent,false)
@@ -78,11 +79,22 @@ abstract class V7Adapter<T, H: RecyclerView.ViewHolder>(
     }
 
     override fun getItemCount(): Int = dataList.size
-    override fun onBindViewHolder(holder: H, position: Int) = bindData(holder, dataList.get(position))
+    override fun onBindViewHolder(holder: H, position: Int) = bindView(holder, dataList.get(position))
 
-    fun invalidate(dataList: ArrayList<T>) {
+    fun invalidate(dataList: ArrayList<T>, all: Boolean = false) {
+        if (all) {
+            this.dataList = dataList
+            notifyDataSetChanged()
+
+            return
+        }
+
+        val start = this.dataList.size
+        val end   = dataList.size
+
         this.dataList = dataList
-        notifyDataSetChanged()
+
+        notifyItemRangeInserted(start, end)
     }
 
     fun invalidate(pos: Int, data: T) {
@@ -90,13 +102,26 @@ abstract class V7Adapter<T, H: RecyclerView.ViewHolder>(
         notifyItemChanged(pos)
     }
 
-    abstract fun bindData(holder: H, data: T)
+    abstract fun bindView(holder: H, data: T?)
 }
 
-inline fun RecyclerView.verticalLayout() {
-    layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
+inline fun RecyclerView.verticalLayout(): LinearLayoutManager {
+    val manager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
+    layoutManager = manager
+
+    return manager
 }
 
-inline fun RecyclerView.horizontalLayout() {
-    layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
+inline fun RecyclerView.horizontalLayout(): LinearLayoutManager {
+    val manager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
+    layoutManager = manager
+
+    return manager
+}
+
+inline fun RecyclerView.gridLayout(col: Int): GridLayoutManager {
+    val manager = GridLayoutManager(context, col)
+    layoutManager = manager
+
+    return manager
 }

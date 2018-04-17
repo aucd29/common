@@ -35,7 +35,7 @@ inline fun Context.color(name: String): ColorDrawable {
 }
 
 inline fun Context.color(@ColorRes resid: Int): Int = ContextCompat.getColor(this, resid)
-inline fun Context.colorList(@ColorRes resid: Int): ColorStateList = ContextCompat.getColorStateList(this, resid)
+inline fun Context.colorList(@ColorRes resid: Int): ColorStateList? = ContextCompat.getColorStateList(this, resid)
 
 class ColorSelector(context: Context): SelectorBase(context) {
     override fun drawable(name: String): Drawable {

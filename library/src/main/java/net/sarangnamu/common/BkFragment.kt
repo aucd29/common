@@ -114,20 +114,24 @@ inline fun FragmentTransaction.animate(anim: Int) {
 abstract class FrgmtBase : Fragment() {
     protected lateinit var base: ViewGroup
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val id = layoutId()
         if (id == 0) {
             base = defaultView()
         } else {
-            base = inflater!!.inflate(id, container!!) as ViewGroup
+            base = inflater.inflate(id, container, false) as ViewGroup
         }
 
         base.isClickable = true
-        base.setBackgroundColor(0xffffff)
-
-        initLayout()
+//        base.setBackgroundColor(0xffffff)
 
         return base
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        initLayout()
     }
 
     protected fun defaultView() : ViewGroup {
@@ -174,7 +178,7 @@ abstract class RuleFrgmtBase: FrgmtBase() {
             log.debug("INFLATE NAME : $name")
         }
 
-        return resources.getIdentifier(name, LAYOUT, activity.packageName)
+        return resources.getIdentifier(name, LAYOUT, activity?.packageName)
     }
 
     fun inflateName(): String {
