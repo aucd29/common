@@ -1,7 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+ext {
+    support_lib     = '26.1.0'
+    google_service  = '8.3.0'
+    logback         = '1.1.1-11'
+    slf4j           = '1.7.25'
+    jackson         = '2.8.5'
+}
+
 buildscript {
-    ext.kotlin_version = '1.2.31'
+    ext.kotlin_version  = '1.2.31'
+
     repositories {
         google()
         jcenter()
