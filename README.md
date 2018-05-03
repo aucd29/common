@@ -15,12 +15,6 @@ Step 2. Add the dependency
 
 ```gradle
 dependencies {
-    compile 'com.github.aucd29:common:1.0.14'
-}
-```
-```gradle
-# kotlin
-dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.google.android.gms:play-services-ads:8.3.0'
