@@ -33,5 +33,8 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:1.7.5'
     implementation 'com.google.android.gms:play-services-ads:8.3.0'
 
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+
     implementation 'com.github.aucd29:common:2.0.5'
 }
