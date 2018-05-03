@@ -1,4 +1,4 @@
-package net.sarangnamu.common
+package net.sarangnamu.common.binding
 
 import android.app.Activity
 import android.content.Context
