@@ -35,10 +35,10 @@ open abstract class VmAdapter<I : IItem,
     : RecyclerView.Adapter<VH> {
 
     protected var mDataList: List<I>? = null
-    protected var mModel: VM
+    protected var mViewModel: VM
 
     constructor(viewModel: VM) {
-        this.mModel    = viewModel
+        this.mViewModel    = viewModel
         this.mDataList = viewModel.dataList.value as List<I>
     }
 
