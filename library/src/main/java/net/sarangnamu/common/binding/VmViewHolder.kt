@@ -19,13 +19,12 @@ package net.sarangnamu.common.binding
 
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
-import android.view.View
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2018. 5. 3.. <p/>
  */
 
-open abstract class VmViewHolder<I : IItem, T : ViewDataBinding> : RecyclerView.ViewHolder {
+open abstract class VmViewHolder<I : VmItem, T : ViewDataBinding> : RecyclerView.ViewHolder {
     var binding: T
 
     constructor(binding: T): super(binding.root) {

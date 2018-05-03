@@ -29,9 +29,9 @@ import android.view.ViewGroup
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2018. 5. 3.. <p/>
  */
 
-open abstract class VmAdapter<I : IItem,
+open abstract class VmAdapter<I : VmItem,
                               VM : VmViewModel<MutableLiveData<List<Any>>>,
-                              VH : VmViewHolder<IItem, ViewDataBinding>>
+                              VH : VmViewHolder<VmItem, ViewDataBinding>>
     : RecyclerView.Adapter<VH> {
 
     protected var mDataList: List<I>? = null

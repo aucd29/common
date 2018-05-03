@@ -21,6 +21,6 @@ package net.sarangnamu.common.binding
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2018. 5. 3.. <p/>
  */
-interface IItem {
+interface VmItem {
     fun type(): Int
 }
