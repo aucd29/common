@@ -1,6 +1,7 @@
 package net.sarangnamu.common
 
 import android.app.Activity
+import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.annotation.LayoutRes
@@ -18,12 +19,19 @@ fun <T : ViewDataBinding> Activity.inflateDataBinding(@LayoutRes layoutId: Int, 
     return DataBindingUtil.inflate(inflater, layoutId, parent, attachToParent)
 }
 
-fun <T : ViewDataBinding> Activity.contentViewDataBinding(@LayoutRes layoutId: Int): T {
-    return DataBindingUtil.setContentView(this, layoutId)
-}
-
 fun <T : ViewDataBinding> Fragment.inflateDataBinding(@LayoutRes layoutId: Int, parent: ViewGroup?, attachToParent: Boolean): T {
     val inflater = LayoutInflater.from(this.activity)
 
     return DataBindingUtil.inflate(inflater, layoutId, parent, attachToParent)
 }
+
+fun <T : ViewDataBinding> Context.inflateDataBinding(@LayoutRes layoutId: Int, parent: ViewGroup?, attachToParent: Boolean): T {
+    val inflater = LayoutInflater.from(this)
+
+    return DataBindingUtil.inflate(inflater, layoutId, parent, attachToParent)
+}
+
+fun <T : ViewDataBinding> Activity.contentViewDataBinding(@LayoutRes layoutId: Int): T {
+    return DataBindingUtil.setContentView(this, layoutId)
+}
+
