@@ -98,3 +98,4 @@ open class AppTerminator(var activity: Activity, var view: View? = null) {
 fun Activity.async(background: (() -> Boolean)? = null, post: ((result: Boolean) -> Unit)? = null) {
     Async(background, post).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
 }
+

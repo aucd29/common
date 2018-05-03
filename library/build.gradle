@@ -18,6 +18,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -31,6 +35,10 @@ dependencies {
 
     implementation "com.github.tony19:logback-android:$logback"
     implementation "org.slf4j:slf4j-api:$slf4j"
+    implementation "com.android.support.constraint:constraint-layout:$constraint"
+
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
 }
 
 // build a jar with source files

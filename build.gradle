@@ -6,6 +6,7 @@ ext {
     logback         = '1.1.1-11'
     slf4j           = '1.7.25'
     jackson         = '2.8.5'
+    constraint      = '1.1.0'   // 이게 relative 보다 비용이 싸다고 함
 }
 
 buildscript {
@@ -17,7 +18,7 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
