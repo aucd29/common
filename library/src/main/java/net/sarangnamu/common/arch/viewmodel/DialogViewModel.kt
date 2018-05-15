@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Burke Choi All rights reserved.
+ * Copyright 2016 Burke Choi All rights reserved.
  *             http://www.sarangnamu.net
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package net.sarangnamu.common.viewmodel
+package net.sarangnamu.common.arch.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
@@ -40,20 +40,7 @@ import android.databinding.ObservableField
  * ```
  */
 
-class DialogViewModel : ViewModel() {
-    var title   = ObservableField<String>()
-    var message = ObservableField<String>()
-    var dismiss = MutableLiveData<Boolean>()
-
-    fun init() {
-        dismiss = MutableLiveData<Boolean>()
-    }
-
-    fun positiveClose() {
-        dismiss.value = true
-    }
-
-    fun negativeClose() {
-        dismiss.value = false
-    }
+open class DialogViewModel : DismissViewModel() {
+    protected var title   = ObservableField<String>()
+    protected var message = ObservableField<String>()
 }

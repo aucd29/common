@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package net.sarangnamu.common.binding
+package net.sarangnamu.common.arch
 
 import android.app.Activity
 import android.content.Context

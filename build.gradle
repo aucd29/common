@@ -7,6 +7,7 @@ ext {
     slf4j           = '1.7.25'
     jackson         = '2.8.5'
     constraint      = '1.1.0'   // 이게 relative 보다 비용이 싸다고 함
+    picasso         = '2.5.2'
 }
 
 buildscript {

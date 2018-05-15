@@ -60,6 +60,7 @@ import java.lang.reflect.ParameterizedType
  * ```
  */
 
+@Deprecated(message = "net.sarangnamu.common.arch.adapter.BkAdapter")
 abstract class V7Adapter<T, H: RecyclerView.ViewHolder>(
         protected val context: Context,
         protected @LayoutRes val id: Int,
